@@ -36,3 +36,11 @@
     developed by Alina Shakhabova <span class="heart"></span>
   </footer>
 </div>
+
+<app-add-dua-modal
+  *ngIf="isCategoryModalOpen && selectedLibraryDua"
+  [initialText]="selectedLibraryDua.textRu"
+  [initialCategory]="'Р РёР·Рє'"
+  (close)="closeCategoryModal()"
+  (save)="saveLibraryDua($event)">
+</app-add-dua-modal>

@@ -175,6 +175,14 @@
   margin-top: 15px;
 }
 
+.flip-hint {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  opacity: 0.78;
+}
+
 .card-footer {
   display: flex;
   justify-content: space-between;

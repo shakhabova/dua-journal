@@ -1,14 +1,14 @@
 import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { DuaService } from '../../services/dua.service';
-import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
 import { RouterModule } from '@angular/router';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 
 @Component({
   selector: 'app-answers',
   standalone: true,
-  imports: [CommonModule, DuaCardComponent, RouterModule, AddDuaModalComponent],
+  imports: [CommonModule, FormsModule, RouterModule, AddDuaModalComponent],
   templateUrl: './answers.component.html',
   styleUrl: './answers.component.css'
 })
@@ -53,5 +53,9 @@ export class AnswersComponent {
 
   unmarkAnswered(id: string) {
     this.duaService.unmarkAsAnswered(id);
+  }
+
+  updateAnswerNote(id: string, note: string) {
+    this.duaService.updateAnswerNote(id, note);
   }
 }

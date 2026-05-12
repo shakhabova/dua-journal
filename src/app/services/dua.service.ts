@@ -113,6 +113,8 @@ export class DuaService {
       category: 'Семья',
       text: 'Даруй моей маме крепкое здоровье и защити ее от вреда',
       dateAdded: new Date(2025, 0, 27),
+      answeredAt: new Date(2025, 2, 11),
+      answerNote: 'Альхамдулиллях, мама чувствует себя лучше.',
       isAnswered: true,
       isCustom: true
     },
@@ -137,33 +139,48 @@ export class DuaService {
     return this.libraryDuas[0];
   }
 
-  addUserDua(text: string, category: string = '') {
+  addUserDua(
+    text: string,
+    category: string = '',
+    originalDuaId?: string,
+    sourceDetails?: Pick<Dua, 'textAr' | 'transcription' | 'reference'>
+  ) {
     const newDua: UserDua = {
       id: 'u' + Date.now().toString(),
       text,
+      textAr: sourceDetails?.textAr,
+      transcription: sourceDetails?.transcription,
+      reference: sourceDetails?.reference,
       category,
       dateAdded: new Date(),
       isAnswered: false,
-      isCustom: true
+      isCustom: true,
+      originalDuaId
     };
     this.userDuas.update(duas => [newDua, ...duas]);
   }
 
   markAsAnswered(id: string) {
     this.userDuas.update(duas =>
-      duas.map(dua => dua.id === id ? { ...dua, isAnswered: true } : dua)
+      duas.map(dua => dua.id === id ? { ...dua, isAnswered: true, answeredAt: dua.answeredAt ?? new Date() } : dua)
     );
   }
 
   unmarkAsAnswered(id: string) {
     this.userDuas.update(duas =>
-      duas.map(dua => dua.id === id ? { ...dua, isAnswered: false } : dua)
+      duas.map(dua => dua.id === id ? { ...dua, isAnswered: false, answeredAt: undefined } : dua)
     );
   }
 
   updateUserDua(id: string, text: string, category: string) {
     this.userDuas.update(duas =>
       duas.map(dua => dua.id === id ? { ...dua, text, category } : dua)
+    );
+  }
+
+  updateAnswerNote(id: string, answerNote: string) {
+    this.userDuas.update(duas =>
+      duas.map(dua => dua.id === id ? { ...dua, answerNote } : dua)
     );
   }
 

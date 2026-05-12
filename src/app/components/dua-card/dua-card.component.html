@@ -34,6 +34,7 @@
       <div class="card-content">
         <p class="dua-text" [class.main-text]="isMain">{{ isMain ? '"' + text + '"' : text }}</p>
         <p class="dua-ref" *ngIf="reference">{{ reference }}</p>
+        <p class="flip-hint" *ngIf="textAr && !isExporting">Нажмите, чтобы увидеть оригинал</p>
       </div>
 
       <div class="card-footer" *ngIf="(actionText || date || id) && !isExporting">
@@ -86,6 +87,7 @@
         <p class="dua-text-ar">{{ textAr }}</p>
         <p class="dua-transcription" *ngIf="transcription">{{ transcription }}</p>
         <p class="dua-ref" *ngIf="reference">{{ reference }}</p>
+        <p class="flip-hint" *ngIf="!isExporting">Нажмите, чтобы вернуться</p>
       </div>
     </div>
 

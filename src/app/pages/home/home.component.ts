@@ -1,31 +1,52 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DuaService } from '../../services/dua.service';
 import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
+import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 import { Dua } from '../../models/dua.model';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, DuaCardComponent],
+  imports: [CommonModule, DuaCardComponent, AddDuaModalComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
   private duaService = inject(DuaService);
-  
+
   dailyDua: Dua = this.duaService.getDailyDua();
   quranDuas: Dua[] = this.duaService.getLibraryDuas().filter(d => d.source === 'Quran');
   sunnahDuas: Dua[] = this.duaService.getLibraryDuas().filter(d => d.source === 'Sunnah');
 
-  addedDuaIds = signal<Set<string>>(new Set());
+  addedDuaIds = computed(() => {
+    const ids = this.duaService.userDuas()
+      .map(dua => dua.originalDuaId)
+      .filter((id): id is string => !!id);
+    return new Set(ids);
+  });
+  isCategoryModalOpen = false;
+  selectedLibraryDua: Dua | null = null;
 
   addToMyDuas(dua: Dua) {
-    this.duaService.addUserDua(dua.textRu, dua.source === 'Quran' ? 'Коран' : 'Сунна');
-    this.addedDuaIds.update(set => {
-      const newSet = new Set(set);
-      newSet.add(dua.id);
-      return newSet;
+    this.selectedLibraryDua = dua;
+    this.isCategoryModalOpen = true;
+  }
+
+  closeCategoryModal() {
+    this.isCategoryModalOpen = false;
+    this.selectedLibraryDua = null;
+  }
+
+  saveLibraryDua(data: { text: string, category: string }) {
+    const dua = this.selectedLibraryDua;
+    if (!dua) return;
+
+    this.duaService.addUserDua(data.text, data.category, dua.id, {
+      textAr: dua.textAr,
+      transcription: dua.transcription,
+      reference: dua.reference
     });
+    this.closeCategoryModal();
   }
 }

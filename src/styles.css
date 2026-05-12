@@ -59,7 +59,7 @@ html, body {
 
 body {
   font-family: var(--font-body);
-  background: var(--bg-milky) url('/bg-home.png') top center / 100% auto fixed no-repeat;
+  background: var(--bg-milky);
   color: var(--text-dark);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
