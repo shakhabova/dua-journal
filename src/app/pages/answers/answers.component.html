@@ -1,0 +1,38 @@
+<div class="container page-container answers-page">
+  <div class="emotional-header">
+    <h2 class="section-title">Отвеченные</h2>
+    <hr class="divider">
+    <p class="emotional-subtitle">Раздел благодарности и радости. Место, где хранятся исполненные надежды.</p>
+  </div>
+
+  <div class="cards-list" *ngIf="answeredDuas().length > 0; else noAnswers">
+     <app-dua-card *ngFor="let dua of answeredDuas()"
+        [id]="dua.id"
+        [text]="dua.text"
+        [category]="dua.category"
+        [date]="dua.dateAdded"
+        [isAnswered]="true"
+        [hideAnswerAction]="true"
+        (editClicked)="openEditModal($event)"
+        (deleteClicked)="deleteDua($event)"
+        (unmarkAnswered)="unmarkAnswered($event)">
+     </app-dua-card>
+  </div>
+
+  <ng-template #noAnswers>
+    <div class="empty-state">
+      <div class="icon">✨</div>
+      <p>Здесь пока пусто, но каждая ду‘а будет услышана в свое время.</p>
+      <a routerLink="/my-duas" class="action-btn-link">Перейти к моим ду‘а</a>
+    </div>
+  </ng-template>
+
+  <app-add-dua-modal 
+    *ngIf="isModalOpen" 
+    [editMode]="isEditMode"
+    [initialText]="editInitialText"
+    [initialCategory]="editInitialCategory"
+    (close)="closeModal()" 
+    (save)="saveNewDua($event)">
+  </app-add-dua-modal>
+</div>

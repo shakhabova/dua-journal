@@ -1,0 +1,32 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="onClose()">✕</button>
+    <h3 class="modal-title">{{ editMode ? 'Редактировать ду‘а' : 'Новое ду‘а' }}</h3>
+    
+    <div class="form-group">
+      <label>Текст вашей мольбы</label>
+      <textarea 
+        [(ngModel)]="newText" 
+        placeholder="О Аллах..."
+        rows="4">
+      </textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Категория</label>
+      <div class="category-tags">
+        <button 
+          *ngFor="let cat of categories" 
+          class="category-tag" 
+          [class.active]="cat === selectedCategory"
+          (click)="selectCategory(cat)">
+          {{ cat }}
+        </button>
+      </div>
+    </div>
+
+    <button class="action-btn" [disabled]="!newText.trim()" (click)="onSave()">
+      {{ editMode ? 'Сохранить изменения' : 'Добавить в дневник' }}
+    </button>
+  </div>
+</div>

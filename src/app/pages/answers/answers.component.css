@@ -1,0 +1,79 @@
+.answers-page {
+  animation: fadeIn 0.4s ease-out;
+  padding-top: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.emotional-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid rgba(212, 175, 55, 0.4);
+  margin: 0 auto 20px;
+  width: 100px;
+}
+
+.emotional-subtitle {
+  font-size: 1.1rem;
+  color: white;
+  font-style: italic;
+  font-family: var(--font-heading);
+  line-height: 1.5;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.empty-state {
+  text-align: center;
+  margin-top: 60px;
+  color: var(--text-muted);
+}
+
+.empty-state .icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  opacity: 0.6;
+}
+
+.action-btn-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--accent-sand);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  transition: all 0.2s;
+  font-size: 0.95rem;
+}
+
+.action-btn-link:hover {
+  background: #fff;
+  border-color: rgba(212, 175, 55, 0.5);
+}

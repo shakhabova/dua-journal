@@ -1,0 +1,41 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+.app-header {
+  padding: 40px 0 20px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 2.4rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.theme-toggle-btn {
+  font-size: 1.6rem;
+  color: var(--accent-sand);
+  filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.3));
+  transition: transform 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.1) rotate(10deg);
+}
+
+.main-content {
+  flex: 1;
+  padding-bottom: 90px;
+}
