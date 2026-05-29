@@ -133,8 +133,6 @@ export class DuaService {
         },
     ]);
 
-    constructor() {}
-
     getLibraryDuas(): Dua[] {
         return this.libraryDuas;
     }
@@ -151,7 +149,7 @@ export class DuaService {
         sourceDetails?: Pick<Dua, 'textAr' | 'transcription' | 'reference'>,
     ) {
         const newDua: UserDua = {
-            id: 'u' + Date.now().toString(),
+            id: `u${Date.now().toString()}`,
             text,
             textAr: sourceDetails?.textAr,
             transcription: sourceDetails?.transcription,

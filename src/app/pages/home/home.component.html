@@ -2,9 +2,9 @@
   <section class="daily-section">
     <h2 class="section-title">Ду‘а дня</h2>
     <hr class="divider">
-    <app-dua-card [text]="dailyDua.textRu" [reference]="dailyDua.reference" [isMain]="true"
-      [isAdded]="addedDuaIds().has(dailyDua.id)" actionText="Добавить к моим" (actionClick)="addToMyDuas(dailyDua)"
-      [textAr]="dailyDua.textAr" [transcription]="dailyDua.transcription">
+    <app-dua-card [text]="dailyDua().textRu" [reference]="dailyDua().reference" [isMain]="true"
+      [isAdded]="addedDuaIds().has(dailyDua().id)" actionText="Добавить к моим" (actionClick)="addToMyDuas(dailyDua())"
+      [textAr]="dailyDua().textAr" [transcription]="dailyDua().transcription">
     </app-dua-card>
   </section>
 
@@ -13,7 +13,7 @@
       <h3 class="section-title small">Ду‘а из Корана</h3>
       <hr class="divider">
       <div class="cards-list">
-        @for (dua of quranDuas; track dua) {
+        @for (dua of quranDuas(); track dua) {
           <app-dua-card [text]="dua.textRu" [reference]="dua.reference"
             [isAdded]="addedDuaIds().has(dua.id)" actionText="Сохранить в мои ду‘а" (actionClick)="addToMyDuas(dua)"
             [textAr]="dua.textAr" [transcription]="dua.transcription">
@@ -26,7 +26,7 @@
       <h3 class="section-title small">Ду‘а из Сунны</h3>
       <hr class="divider">
       <div class="cards-list">
-        @for (dua of sunnahDuas; track dua) {
+        @for (dua of sunnahDuas(); track dua) {
           <app-dua-card [text]="dua.textRu" [reference]="dua.reference"
             [isAdded]="addedDuaIds().has(dua.id)" actionText="Сохранить в мои ду‘а" (actionClick)="addToMyDuas(dua)"
             [textAr]="dua.textAr" [transcription]="dua.transcription">
@@ -41,10 +41,10 @@
   </footer>
 </div>
 
-@if (isCategoryModalOpen && selectedLibraryDua) {
+@if (isCategoryModalOpen() && selectedLibraryDua()) {
   <app-add-dua-modal
-    [initialText]="selectedLibraryDua.textRu"
-    [initialCategory]="'Р РёР·Рє'"
+    [initialText]="selectedLibraryDua()!.textRu"
+    [initialCategory]="'Ризк'"
     (close)="closeCategoryModal()"
     (save)="saveLibraryDua($event)">
   </app-add-dua-modal>

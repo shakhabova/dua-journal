@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ThemeService } from './services/theme.service';
@@ -8,6 +8,7 @@ import { ThemeService } from './services/theme.service';
     imports: [RouterOutlet, NavbarComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
     private themeService = inject(ThemeService);

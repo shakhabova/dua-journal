@@ -1,16 +1,16 @@
-<div class="dua-card-container" [class.has-back]="!!textAr" (click)="toggleFlip($event)">
-  <div class="dua-card-flipper" [class.is-flipped]="isFlipped">
+<div class="dua-card-container" [class.has-back]="!!textAr()" (click)="toggleFlip($event)">
+  <div class="dua-card-flipper" [class.is-flipped]="isFlipped()">
 
     <!-- FRONT SIDE -->
-    <div class="dua-card-face dua-card-front dua-card" [class.main-card]="isMain" [class.answered-card]="isAnswered"
-      [class.animating]="isAnimating || isAnimatingAdded" [class.exporting]="isExporting">
+    <div class="dua-card-face dua-card-front dua-card" [class.main-card]="isMain()" [class.answered-card]="isAnswered()"
+      [class.animating]="isAnimating() || isAnimatingAdded()" [class.exporting]="isExporting()">
 
-      <div class="card-header" [class.has-dropdown]="id && !actionText">
-        @if (category) {
-          <span class="badge category">{{ category }}</span>
+      <div class="card-header" [class.has-dropdown]="id() && !actionText()">
+        @if (category()) {
+          <span class="badge category">{{ category() }}</span>
         }
 
-        @if (id && !actionText && !isExporting) {
+        @if (id() && !actionText() && !isExporting()) {
           <div class="dropdown-container">
             <button class="icon-btn" (click)="toggleDropdown($event)">
               <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
@@ -19,12 +19,12 @@
                 <circle cx="12" cy="19" r="2"></circle>
               </svg>
             </button>
-            @if (showDropdown) {
+            @if (showDropdown()) {
               <div class="dropdown-menu">
                 <button class="dropdown-item edit" (click)="onEdit()">
                   <span class="icon">✎</span> Редактировать
                 </button>
-                @if (isAnswered) {
+                @if (isAnswered()) {
                   <button class="dropdown-item" (click)="onUnmark()">
                     <span class="icon">↺</span> Снять отметку
                   </button>
@@ -39,32 +39,32 @@
       </div>
 
       <div class="card-content">
-        <p class="dua-text" [class.main-text]="isMain">{{ isMain ? '"' + text + '"' : text }}</p>
-        @if (reference) {
-          <p class="dua-ref">{{ reference }}</p>
+        <p class="dua-text" [class.main-text]="isMain()">{{ isMain() ? '"' + text() + '"' : text() }}</p>
+        @if (reference()) {
+          <p class="dua-ref">{{ reference() }}</p>
         }
-        @if (textAr && !isExporting) {
+        @if (textAr() && !isExporting()) {
           <p class="flip-hint">Нажмите, чтобы увидеть оригинал</p>
         }
       </div>
 
-      @if ((actionText || date || id) && !isExporting) {
+      @if ((actionText() || date() || id()) && !isExporting()) {
         <div class="card-footer">
-          @if (date) {
+          @if (date()) {
             <div class="left-footer">
-              <span class="date">{{ date | date:'d MMM yyyy' }}</span>
+              <span class="date">{{ date() | date:'d MMM yyyy' }}</span>
             </div>
           }
           <!-- Library / Main actions -->
-          @if (actionText) {
+          @if (actionText()) {
             <div class="library-footer">
               <div class="action-wrapper">
-                @if (!isAdded && !isAnimatingAdded) {
+                @if (!isAdded() && !isAnimatingAdded()) {
                   <button class="action-btn" (click)="onBtnClick()">
-                    + {{ actionText }}
+                    + {{ actionText() }}
                   </button>
                 }
-                @if (actionText && (isAdded || isAnimatingAdded)) {
+                @if (actionText() && (isAdded() || isAnimatingAdded())) {
                   <div class="added-state">
                     <span class="badge status-answered">
                       <span class="checkmark">✓</span> Добавлено в мои ду‘а
@@ -85,14 +85,14 @@
             </div>
           }
           <!-- User Dua interactions -->
-          @if (!actionText && !hideAnswerAction) {
+          @if (!actionText() && !hideAnswerAction()) {
             <div class="right-footer">
-              @if (!isAnswered && !isAnimating) {
+              @if (!isAnswered() && !isAnimating()) {
                 <button class="mark-answered-btn" (click)="onMarkAnswered()">
                   ✓ Ответить
                 </button>
               }
-              @if (isAnswered || isAnimating) {
+              @if (isAnswered() || isAnimating()) {
                 <span class="badge status-answered">
                   <span class="checkmark">✓</span> Отвечено
                 </span>
@@ -104,18 +104,18 @@
     </div>
 
     <!-- BACK SIDE -->
-    @if (textAr) {
-      <div class="dua-card-face dua-card-back dua-card" [class.main-card]="isMain"
-        [class.exporting]="isExporting">
+    @if (textAr()) {
+      <div class="dua-card-face dua-card-back dua-card" [class.main-card]="isMain()"
+        [class.exporting]="isExporting()">
         <div class="card-content back-content">
-          <p class="dua-text-ar">{{ textAr }}</p>
-          @if (transcription) {
-            <p class="dua-transcription">{{ transcription }}</p>
+          <p class="dua-text-ar">{{ textAr() }}</p>
+          @if (transcription()) {
+            <p class="dua-transcription">{{ transcription() }}</p>
           }
-          @if (reference) {
-            <p class="dua-ref">{{ reference }}</p>
+          @if (reference()) {
+            <p class="dua-ref">{{ reference() }}</p>
           }
-          @if (!isExporting) {
+          @if (!isExporting()) {
             <p class="flip-hint">Нажмите, чтобы вернуться</p>
           }
         </div>

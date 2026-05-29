@@ -1,4 +1,10 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    inject,
+    signal,
+} from '@angular/core';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
 import { DuaService } from '../../services/dua.service';
@@ -8,6 +14,7 @@ import { DuaService } from '../../services/dua.service';
     imports: [DuaCardComponent, AddDuaModalComponent],
     templateUrl: './my-duas.component.html',
     styleUrl: './my-duas.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyDuasComponent {
     private duaService = inject(DuaService);
@@ -31,43 +38,43 @@ export class MyDuasComponent {
         () => this.myDuas().filter((d) => d.isAnswered).length,
     );
 
-    isModalOpen = false;
-    isEditMode = false;
-    isFilterOpen = false;
-    editingDuaId: string | null = null;
-    editInitialText = '';
-    editInitialCategory = '';
+    isModalOpen = signal(false);
+    isEditMode = signal(false);
+    isFilterOpen = signal(false);
+    editingDuaId = signal<string | null>(null);
+    editInitialText = signal('');
+    editInitialCategory = signal('');
 
     toggleFilter() {
-        this.isFilterOpen = !this.isFilterOpen;
+        this.isFilterOpen.update((v) => !v);
     }
 
     openModal() {
-        this.isEditMode = false;
-        this.editInitialText = '';
-        this.editInitialCategory = 'Ризк';
-        this.isModalOpen = true;
+        this.isEditMode.set(false);
+        this.editInitialText.set('');
+        this.editInitialCategory.set('Ризк');
+        this.isModalOpen.set(true);
     }
 
     openEditModal(id: string) {
         const dua = this.myDuas().find((d) => d.id === id);
         if (dua) {
-            this.isEditMode = true;
-            this.editingDuaId = id;
-            this.editInitialText = dua.text;
-            this.editInitialCategory = dua.category || 'Ризк';
-            this.isModalOpen = true;
+            this.isEditMode.set(true);
+            this.editingDuaId.set(id);
+            this.editInitialText.set(dua.text);
+            this.editInitialCategory.set(dua.category || 'Ризк');
+            this.isModalOpen.set(true);
         }
     }
 
     closeModal() {
-        this.isModalOpen = false;
+        this.isModalOpen.set(false);
     }
 
     saveNewDua(data: { text: string; category: string }) {
-        if (this.isEditMode && this.editingDuaId) {
+        if (this.isEditMode() && this.editingDuaId()) {
             this.duaService.updateUserDua(
-                this.editingDuaId,
+                this.editingDuaId()!,
                 data.text,
                 data.category,
             );
@@ -91,6 +98,6 @@ export class MyDuasComponent {
 
     setFilter(category: string) {
         this.selectedFilter.set(category);
-        this.isFilterOpen = false;
+        this.isFilterOpen.set(false);
     }
 }

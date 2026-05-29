@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    inject,
+    signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
@@ -10,6 +16,7 @@ import { DuaService } from '../../services/dua.service';
     imports: [CommonModule, FormsModule, RouterModule, AddDuaModalComponent],
     templateUrl: './answers.component.html',
     styleUrl: './answers.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnswersComponent {
     private duaService = inject(DuaService);
@@ -18,31 +25,31 @@ export class AnswersComponent {
         this.duaService.userDuas().filter((d) => d.isAnswered),
     );
 
-    isModalOpen = false;
-    isEditMode = false;
-    editingDuaId: string | null = null;
-    editInitialText = '';
-    editInitialCategory = '';
+    isModalOpen = signal(false);
+    isEditMode = signal(false);
+    editingDuaId = signal<string | null>(null);
+    editInitialText = signal('');
+    editInitialCategory = signal('');
 
     openEditModal(id: string) {
         const dua = this.answeredDuas().find((d) => d.id === id);
         if (dua) {
-            this.isEditMode = true;
-            this.editingDuaId = id;
-            this.editInitialText = dua.text;
-            this.editInitialCategory = dua.category || 'Ризк';
-            this.isModalOpen = true;
+            this.isEditMode.set(true);
+            this.editingDuaId.set(id);
+            this.editInitialText.set(dua.text);
+            this.editInitialCategory.set(dua.category || 'Ризк');
+            this.isModalOpen.set(true);
         }
     }
 
     closeModal() {
-        this.isModalOpen = false;
+        this.isModalOpen.set(false);
     }
 
     saveNewDua(data: { text: string; category: string }) {
-        if (this.isEditMode && this.editingDuaId) {
+        if (this.isEditMode() && this.editingDuaId()) {
             this.duaService.updateUserDua(
-                this.editingDuaId,
+                this.editingDuaId()!,
                 data.text,
                 data.category,
             );
