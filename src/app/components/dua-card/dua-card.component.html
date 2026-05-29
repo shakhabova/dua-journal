@@ -6,90 +6,121 @@
       [class.animating]="isAnimating || isAnimatingAdded" [class.exporting]="isExporting">
 
       <div class="card-header" [class.has-dropdown]="id && !actionText">
-        <span class="badge category" *ngIf="category">{{ category }}</span>
+        @if (category) {
+          <span class="badge category">{{ category }}</span>
+        }
 
-        <div class="dropdown-container" *ngIf="id && !actionText && !isExporting">
-          <button class="icon-btn" (click)="toggleDropdown($event)">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-              <circle cx="12" cy="5" r="2"></circle>
-              <circle cx="12" cy="12" r="2"></circle>
-              <circle cx="12" cy="19" r="2"></circle>
-            </svg>
-          </button>
-
-          <div class="dropdown-menu" *ngIf="showDropdown">
-            <button class="dropdown-item edit" (click)="onEdit()">
-              <span class="icon">✎</span> Редактировать
+        @if (id && !actionText && !isExporting) {
+          <div class="dropdown-container">
+            <button class="icon-btn" (click)="toggleDropdown($event)">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <circle cx="12" cy="5" r="2"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+                <circle cx="12" cy="19" r="2"></circle>
+              </svg>
             </button>
-            <button class="dropdown-item" *ngIf="isAnswered" (click)="onUnmark()">
-              <span class="icon">↺</span> Снять отметку
-            </button>
-            <button class="dropdown-item delete" (click)="onDelete()">
-              <span class="icon">🗑</span> Удалить
-            </button>
+            @if (showDropdown) {
+              <div class="dropdown-menu">
+                <button class="dropdown-item edit" (click)="onEdit()">
+                  <span class="icon">✎</span> Редактировать
+                </button>
+                @if (isAnswered) {
+                  <button class="dropdown-item" (click)="onUnmark()">
+                    <span class="icon">↺</span> Снять отметку
+                  </button>
+                }
+                <button class="dropdown-item delete" (click)="onDelete()">
+                  <span class="icon">🗑</span> Удалить
+                </button>
+              </div>
+            }
           </div>
-        </div>
+        }
       </div>
 
       <div class="card-content">
         <p class="dua-text" [class.main-text]="isMain">{{ isMain ? '"' + text + '"' : text }}</p>
-        <p class="dua-ref" *ngIf="reference">{{ reference }}</p>
-        <p class="flip-hint" *ngIf="textAr && !isExporting">Нажмите, чтобы увидеть оригинал</p>
+        @if (reference) {
+          <p class="dua-ref">{{ reference }}</p>
+        }
+        @if (textAr && !isExporting) {
+          <p class="flip-hint">Нажмите, чтобы увидеть оригинал</p>
+        }
       </div>
 
-      <div class="card-footer" *ngIf="(actionText || date || id) && !isExporting">
-        <div class="left-footer" *ngIf="date">
-          <span class="date">{{ date | date:'d MMM yyyy' }}</span>
-        </div>
-
-        <!-- Library / Main actions -->
-        <div class="library-footer" *ngIf="actionText">
-          <div class="action-wrapper">
-            <button class="action-btn" *ngIf="!isAdded && !isAnimatingAdded" (click)="onBtnClick()">
-              + {{ actionText }}
-            </button>
-
-            <div class="added-state" *ngIf="actionText && (isAdded || isAnimatingAdded)">
-              <span class="badge status-answered">
-                <span class="checkmark">✓</span> Добавлено в мои ду‘а
-              </span>
+      @if ((actionText || date || id) && !isExporting) {
+        <div class="card-footer">
+          @if (date) {
+            <div class="left-footer">
+              <span class="date">{{ date | date:'d MMM yyyy' }}</span>
             </div>
-          </div>
-
-          <button class="icon-btn share-btn" aria-label="Поделиться" (click)="onShare()"
-            title="Поделиться в Telegram/Instagram">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-              <circle cx="18" cy="5" r="3"></circle>
-              <circle cx="6" cy="12" r="3"></circle>
-              <circle cx="18" cy="19" r="3"></circle>
-              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-            </svg>
-          </button>
+          }
+          <!-- Library / Main actions -->
+          @if (actionText) {
+            <div class="library-footer">
+              <div class="action-wrapper">
+                @if (!isAdded && !isAnimatingAdded) {
+                  <button class="action-btn" (click)="onBtnClick()">
+                    + {{ actionText }}
+                  </button>
+                }
+                @if (actionText && (isAdded || isAnimatingAdded)) {
+                  <div class="added-state">
+                    <span class="badge status-answered">
+                      <span class="checkmark">✓</span> Добавлено в мои ду‘а
+                    </span>
+                  </div>
+                }
+              </div>
+              <button class="icon-btn share-btn" aria-label="Поделиться" (click)="onShare()"
+                title="Поделиться в Telegram/Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                  <circle cx="18" cy="5" r="3"></circle>
+                  <circle cx="6" cy="12" r="3"></circle>
+                  <circle cx="18" cy="19" r="3"></circle>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+              </button>
+            </div>
+          }
+          <!-- User Dua interactions -->
+          @if (!actionText && !hideAnswerAction) {
+            <div class="right-footer">
+              @if (!isAnswered && !isAnimating) {
+                <button class="mark-answered-btn" (click)="onMarkAnswered()">
+                  ✓ Ответить
+                </button>
+              }
+              @if (isAnswered || isAnimating) {
+                <span class="badge status-answered">
+                  <span class="checkmark">✓</span> Отвечено
+                </span>
+              }
+            </div>
+          }
         </div>
-
-        <!-- User Dua interactions -->
-        <div class="right-footer" *ngIf="!actionText && !hideAnswerAction">
-          <button *ngIf="!isAnswered && !isAnimating" class="mark-answered-btn" (click)="onMarkAnswered()">
-            ✓ Ответить
-          </button>
-          <span class="badge status-answered" *ngIf="isAnswered || isAnimating">
-            <span class="checkmark">✓</span> Отвечено
-          </span>
-        </div>
-      </div>
+      }
     </div>
 
     <!-- BACK SIDE -->
-    <div class="dua-card-face dua-card-back dua-card" *ngIf="textAr" [class.main-card]="isMain"
-      [class.exporting]="isExporting">
-      <div class="card-content back-content">
-        <p class="dua-text-ar">{{ textAr }}</p>
-        <p class="dua-transcription" *ngIf="transcription">{{ transcription }}</p>
-        <p class="dua-ref" *ngIf="reference">{{ reference }}</p>
-        <p class="flip-hint" *ngIf="!isExporting">Нажмите, чтобы вернуться</p>
+    @if (textAr) {
+      <div class="dua-card-face dua-card-back dua-card" [class.main-card]="isMain"
+        [class.exporting]="isExporting">
+        <div class="card-content back-content">
+          <p class="dua-text-ar">{{ textAr }}</p>
+          @if (transcription) {
+            <p class="dua-transcription">{{ transcription }}</p>
+          }
+          @if (reference) {
+            <p class="dua-ref">{{ reference }}</p>
+          }
+          @if (!isExporting) {
+            <p class="flip-hint">Нажмите, чтобы вернуться</p>
+          }
+        </div>
       </div>
-    </div>
+    }
 
   </div>
 </div>

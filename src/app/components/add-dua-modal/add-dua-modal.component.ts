@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-add-dua-modal',
-    imports: [CommonModule, FormsModule],
+    imports: [FormsModule],
     templateUrl: './add-dua-modal.component.html',
     styleUrl: './add-dua-modal.component.css'
 })

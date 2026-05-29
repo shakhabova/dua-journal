@@ -1,12 +1,12 @@
 import { Component, inject, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { DuaService } from '../../services/dua.service';
 import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 
 @Component({
     selector: 'app-my-duas',
-    imports: [CommonModule, DuaCardComponent, AddDuaModalComponent],
+    imports: [DuaCardComponent, AddDuaModalComponent],
     templateUrl: './my-duas.component.html',
     styleUrl: './my-duas.component.css'
 })

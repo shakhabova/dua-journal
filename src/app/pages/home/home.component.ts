@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { DuaService } from '../../services/dua.service';
 import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
@@ -7,7 +7,7 @@ import { Dua } from '../../models/dua.model';
 
 @Component({
     selector: 'app-home',
-    imports: [CommonModule, DuaCardComponent, AddDuaModalComponent],
+    imports: [DuaCardComponent, AddDuaModalComponent],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css'
 })

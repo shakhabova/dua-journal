@@ -13,10 +13,12 @@
       <h3 class="section-title small">Ду‘а из Корана</h3>
       <hr class="divider">
       <div class="cards-list">
-        <app-dua-card *ngFor="let dua of quranDuas" [text]="dua.textRu" [reference]="dua.reference"
-          [isAdded]="addedDuaIds().has(dua.id)" actionText="Сохранить в мои ду‘а" (actionClick)="addToMyDuas(dua)"
-          [textAr]="dua.textAr" [transcription]="dua.transcription">
-        </app-dua-card>
+        @for (dua of quranDuas; track dua) {
+          <app-dua-card [text]="dua.textRu" [reference]="dua.reference"
+            [isAdded]="addedDuaIds().has(dua.id)" actionText="Сохранить в мои ду‘а" (actionClick)="addToMyDuas(dua)"
+            [textAr]="dua.textAr" [transcription]="dua.transcription">
+          </app-dua-card>
+        }
       </div>
     </section>
 
@@ -24,10 +26,12 @@
       <h3 class="section-title small">Ду‘а из Сунны</h3>
       <hr class="divider">
       <div class="cards-list">
-        <app-dua-card *ngFor="let dua of sunnahDuas" [text]="dua.textRu" [reference]="dua.reference"
-          [isAdded]="addedDuaIds().has(dua.id)" actionText="Сохранить в мои ду‘а" (actionClick)="addToMyDuas(dua)"
-          [textAr]="dua.textAr" [transcription]="dua.transcription">
-        </app-dua-card>
+        @for (dua of sunnahDuas; track dua) {
+          <app-dua-card [text]="dua.textRu" [reference]="dua.reference"
+            [isAdded]="addedDuaIds().has(dua.id)" actionText="Сохранить в мои ду‘а" (actionClick)="addToMyDuas(dua)"
+            [textAr]="dua.textAr" [transcription]="dua.transcription">
+          </app-dua-card>
+        }
       </div>
     </section>
   </div>
@@ -37,10 +41,11 @@
   </footer>
 </div>
 
-<app-add-dua-modal
-  *ngIf="isCategoryModalOpen && selectedLibraryDua"
-  [initialText]="selectedLibraryDua.textRu"
-  [initialCategory]="'Р РёР·Рє'"
-  (close)="closeCategoryModal()"
-  (save)="saveLibraryDua($event)">
-</app-add-dua-modal>
+@if (isCategoryModalOpen && selectedLibraryDua) {
+  <app-add-dua-modal
+    [initialText]="selectedLibraryDua.textRu"
+    [initialCategory]="'Р РёР·Рє'"
+    (close)="closeCategoryModal()"
+    (save)="saveLibraryDua($event)">
+  </app-add-dua-modal>
+}

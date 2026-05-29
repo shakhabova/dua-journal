@@ -1,5 +1,5 @@
 <div class="container page-container">
-  
+
   <div class="header-section">
     <div class="stats">
       <span class="stat-item"><strong>{{ activeCount() }}</strong> активно</span>
@@ -9,28 +9,32 @@
   </div>
 
   <div class="actions-row">
-    <button class="filter-toggle-btn" (click)="toggleFilter()" [class.active]="isFilterOpen" *ngIf="myDuas().length > 0">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-        <path d="M4 6h16M4 12h16M4 18h7"></path>
-      </svg>
-      Фильтр {{ selectedFilter() !== 'Все' ? '· ' + selectedFilter() : '' }}
-    </button>
+    @if (myDuas().length > 0) {
+      <button class="filter-toggle-btn" (click)="toggleFilter()" [class.active]="isFilterOpen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+          <path d="M4 6h16M4 12h16M4 18h7"></path>
+        </svg>
+        Фильтр {{ selectedFilter() !== 'Все' ? '· ' + selectedFilter() : '' }}
+      </button>
+    }
   </div>
 
   <div class="filters-container" [class.expanded]="isFilterOpen">
-    <button 
-      *ngFor="let cat of categories" 
-      class="filter-chip" 
-      [class.active]="cat === selectedFilter()"
-      (click)="setFilter(cat)">
-      {{ cat }}
-    </button>
+    @for (cat of categories; track cat) {
+      <button
+        class="filter-chip"
+        [class.active]="cat === selectedFilter()"
+        (click)="setFilter(cat)">
+        {{ cat }}
+      </button>
+    }
   </div>
 
   <hr class="divider line-only">
 
   <div class="cards-list">
-     <app-dua-card *ngFor="let dua of filteredDuas()"
+    @for (dua of filteredDuas(); track dua) {
+      <app-dua-card
         [id]="dua.id"
         [text]="dua.text"
         [textAr]="dua.textAr"
@@ -43,16 +47,18 @@
         (editClicked)="openEditModal($event)"
         (deleteClicked)="deleteDua($event)"
         (unmarkAnswered)="unmarkAnswered($event)">
-     </app-dua-card>
+      </app-dua-card>
+    }
   </div>
 
 </div>
 
-<app-add-dua-modal 
-  *ngIf="isModalOpen" 
-  [editMode]="isEditMode"
-  [initialText]="editInitialText"
-  [initialCategory]="editInitialCategory"
-  (close)="closeModal()" 
-  (save)="saveNewDua($event)">
-</app-add-dua-modal>
+@if (isModalOpen) {
+  <app-add-dua-modal
+    [editMode]="isEditMode"
+    [initialText]="editInitialText"
+    [initialCategory]="editInitialCategory"
+    (close)="closeModal()"
+    (save)="saveNewDua($event)">
+  </app-add-dua-modal>
+}
