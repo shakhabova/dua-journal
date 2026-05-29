@@ -1,92 +1,100 @@
 :root {
-  --bg-milky: #FAF7F2;
-  --bg-card: #FFFFFF;
-  --accent-sand: #D4AF37;
-  --accent-blue: #1A2A3A;
-  --text-dark: #333333;
-  --text-light: #7A7A7A;
-  --text-muted: #9E9E9E;
-  
-  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
-  --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.08);
-  --border-light: rgba(0, 0, 0, 0.08);
-  --bg-badge: rgba(0, 0, 0, 0.03);
-  --bg-hover: rgba(0, 0, 0, 0.06);
-  
-  --bg-glass: rgba(250, 247, 242, 0.9);
-  --bg-answered: linear-gradient(to bottom, #ffffff, #faf9f5);
-  --bg-danger-hover: #FFEBEE;
-  --text-danger: #D32F2F;
-  --bg-category: #F8F3EB;
-  --text-category: #B59325;
+    --bg-milky: #faf7f2;
+    --bg-card: #ffffff;
+    --accent-sand: #d4af37;
+    --accent-blue: #1a2a3a;
+    --text-dark: #333333;
+    --text-light: #7a7a7a;
+    --text-muted: #9e9e9e;
 
-  --font-heading: 'Cormorant Garamond', serif;
-  --font-body: 'Inter', sans-serif;
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.08);
+    --border-light: rgba(0, 0, 0, 0.08);
+    --bg-badge: rgba(0, 0, 0, 0.03);
+    --bg-hover: rgba(0, 0, 0, 0.06);
+
+    --bg-glass: rgba(250, 247, 242, 0.9);
+    --bg-answered: linear-gradient(to bottom, #ffffff, #faf9f5);
+    --bg-danger-hover: #ffebee;
+    --text-danger: #d32f2f;
+    --bg-category: #f8f3eb;
+    --text-category: #b59325;
+
+    --font-heading: "Cormorant Garamond", serif;
+    --font-body: "Inter", sans-serif;
 }
 
 [data-theme="dark"] {
-  --bg-milky: #0c1218;  /* Deep atmospheric blue-black */
-  --bg-card: #151d26;   /* Slightly lighter card background */
-  --text-dark: #e8ebee;
-  --text-light: #9ba6b1;
-  --text-muted: #6e7a85;
-  --accent-sand: #DFBE54; /* Brighter gold for better contrast on dark */
-  
-  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.25);
-  --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.45);
-  --border-light: rgba(255, 255, 255, 0.1);
-  --bg-badge: rgba(255, 255, 255, 0.04);
-  --bg-hover: rgba(255, 255, 255, 0.08);
-  
-  --bg-glass: rgba(12, 18, 24, 0.85); 
-  --bg-answered: linear-gradient(to bottom, #1a232b, #151d26);
-  --bg-danger-hover: #3d1c1c;
-  --text-danger: #ef5350;
-  --bg-category: rgba(223, 190, 84, 0.15); 
-  --text-category: #DFBE54;
-}
+    --bg-milky: #0c1218; /* Deep atmospheric blue-black */
+    --bg-card: #151d26; /* Slightly lighter card background */
+    --text-dark: #e8ebee;
+    --text-light: #9ba6b1;
+    --text-muted: #6e7a85;
+    --accent-sand: #dfbe54; /* Brighter gold for better contrast on dark */
 
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.25);
+    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.45);
+    --border-light: rgba(255, 255, 255, 0.1);
+    --bg-badge: rgba(255, 255, 255, 0.04);
+    --bg-hover: rgba(255, 255, 255, 0.08);
+
+    --bg-glass: rgba(12, 18, 24, 0.85);
+    --bg-answered: linear-gradient(to bottom, #1a232b, #151d26);
+    --bg-danger-hover: #3d1c1c;
+    --text-danger: #ef5350;
+    --bg-category: rgba(223, 190, 84, 0.15);
+    --text-category: #dfbe54;
+}
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-html, body {
-  min-height: 100vh;
+html,
+body {
+    min-height: 100vh;
 }
 
 body {
-  font-family: var(--font-body);
-  background: var(--bg-milky);
-  color: var(--text-dark);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.4s ease, color 0.4s ease;
+    font-family: var(--font-body);
+    background: var(--bg-milky);
+    color: var(--text-dark);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition:
+        background-color 0.4s ease,
+        color 0.4s ease;
 }
 
-h1, h2, h3, h4, h5, h6, .heading {
-  font-family: var(--font-heading);
-  font-weight: 500;
-  color: var(--text-dark);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.heading {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    color: var(--text-dark);
 }
 
 a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-  background: none;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
 }
 
 .container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
 }

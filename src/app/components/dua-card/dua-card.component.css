@@ -1,371 +1,375 @@
 .dua-card-container {
-  perspective: 1200px;
-  margin-bottom: 20px;
+    perspective: 1200px;
+    margin-bottom: 20px;
 }
 
 .dua-card-container.has-back {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .dua-card-flipper {
-  display: grid;
-  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transform-style: preserve-3d;
-  width: 100%;
+    display: grid;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+    width: 100%;
 }
 
 .dua-card-flipper.is-flipped {
-  transform: rotateY(180deg);
+    transform: rotateY(180deg);
 }
 
 .dua-card-face {
-  grid-area: 1 / 1;
-  backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
+    grid-area: 1 / 1;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .dua-card-back {
-  transform: rotateY(180deg);
-  justify-content: center;
+    transform: rotateY(180deg);
+    justify-content: center;
 }
 
 .back-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex: 1;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
 }
 
 .dua-text-ar {
-  font-family: 'Amiri', 'Traditional Arabic', serif;
-  font-size: 1.6rem;
-  line-height: 1.6;
-  color: var(--accent-sand);
-  text-align: center;
-  direction: rtl;
-  margin-bottom: 15px;
+    font-family: "Amiri", "Traditional Arabic", serif;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: var(--accent-sand);
+    text-align: center;
+    direction: rtl;
+    margin-bottom: 15px;
 }
 
 .dua-transcription {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: var(--text-dark);
-  text-align: center;
-  margin-bottom: 10px;
-  font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-dark);
+    text-align: center;
+    margin-bottom: 10px;
+    font-style: italic;
 }
 
 .dua-card {
-  background: var(--bg-card);
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 0px !important;
-  /* Managed by container */
-  box-shadow: var(--shadow-soft);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
-  border: 1px solid var(--border-light);
-  height: 100%;
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 0px !important;
+    /* Managed by container */
+    box-shadow: var(--shadow-soft);
+    transition:
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+    border: 1px solid var(--border-light);
+    height: 100%;
 }
 
 .animating {
-  animation: answerPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation: answerPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 @keyframes answerPop {
-  0% {
-    transform: scale(1);
-    box-shadow: var(--shadow-soft);
-  }
+    0% {
+        transform: scale(1);
+        box-shadow: var(--shadow-soft);
+    }
 
-  50% {
-    transform: scale(1.03);
-    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
-    border-color: rgba(212, 175, 55, 0.5);
-  }
+    50% {
+        transform: scale(1.03);
+        box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        border-color: rgba(212, 175, 55, 0.5);
+    }
 
-  100% {
-    transform: scale(1);
-    box-shadow: var(--shadow-soft);
-    border-color: rgba(212, 175, 55, 0.2);
-  }
+    100% {
+        transform: scale(1);
+        box-shadow: var(--shadow-soft);
+        border-color: rgba(212, 175, 55, 0.2);
+    }
 }
 
 .answered-card {
-  border: 1px solid rgba(212, 175, 55, 0.15);
-  background: var(--bg-answered);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    background: var(--bg-answered);
 }
 
 .dua-card:hover {
-  box-shadow: var(--shadow-hover);
+    box-shadow: var(--shadow-hover);
 }
 
 .dua-card.exporting {
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-  /* Nice global shadow for image */
-  transform: none;
-  /* remove any active animations */
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    /* Nice global shadow for image */
+    transform: none;
+    /* remove any active animations */
 }
 
 .main-card {
-  padding: 40px 30px;
-  border: 2px solid rgba(212, 175, 55, 0.2);
-  /* Accent Sand border */
-  border-radius: 16px;
+    padding: 40px 30px;
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    /* Accent Sand border */
+    border-radius: 16px;
 }
 
 .card-header {
-  margin-bottom: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .card-header.has-dropdown {
-  min-height: 24px;
+    min-height: 24px;
 }
 
 .badge {
-  display: inline-block;
-  font-size: 0.8rem;
-  padding: 4px 10px;
-  border-radius: 20px;
+    display: inline-block;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 20px;
 }
 
 .category {
-  background-color: var(--bg-category);
-  color: var(--text-category);
+    background-color: var(--bg-category);
+    color: var(--text-category);
 }
 
 .status-answered {
-  background-color: var(--bg-category);
-  color: var(--text-category);
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 0.8rem;
+    background-color: var(--bg-category);
+    color: var(--text-category);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
 }
 
 .card-content {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .dua-text {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: var(--text-dark);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-dark);
 }
 
 .main-text {
-  font-family: var(--font-heading);
-  font-size: 1.4rem;
-  text-align: center;
-  color: var(--text-dark);
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    text-align: center;
+    color: var(--text-dark);
 }
 
 .dua-ref {
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin-top: 15px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 15px;
 }
 
 .flip-hint {
-  margin-top: 12px;
-  text-align: center;
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  opacity: 0.78;
+    margin-top: 12px;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    opacity: 0.78;
 }
 
 .card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid var(--border-light);
-  padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-light);
+    padding-top: 15px;
 }
 
 .date {
-  font-size: 0.85rem;
-  color: var(--text-muted);
+    font-size: 0.85rem;
+    color: var(--text-muted);
 }
 
 .action-btn {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--border-light);
-  border-radius: 8px;
-  color: var(--text-dark);
-  font-size: 0.95rem;
-  transition: background 0.2s;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    transition: background 0.2s;
 }
 
 .action-btn:hover {
-  background: var(--bg-badge);
+    background: var(--bg-badge);
 }
 
 .main-card .action-btn {
-  width: auto;
-  margin: 0 auto;
-  display: block;
-  padding: 10px 24px;
+    width: auto;
+    margin: 0 auto;
+    display: block;
+    padding: 10px 24px;
 }
 
 .mark-answered-btn {
-  padding: 6px 14px;
-  background: transparent;
-  color: var(--text-muted);
-  border: 1px solid var(--border-light);
-  border-radius: 20px;
-  font-size: 0.85rem;
-  transition: all 0.2s;
-  cursor: pointer;
+    padding: 6px 14px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    cursor: pointer;
 }
 
 .mark-answered-btn:hover {
-  border-color: rgba(212, 175, 55, 0.5);
-  color: #B59325;
-  background: rgba(212, 175, 55, 0.05);
+    border-color: rgba(212, 175, 55, 0.5);
+    color: #b59325;
+    background: rgba(212, 175, 55, 0.05);
 }
 
 .checkmark {
-  display: inline-block;
-  animation: checkPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    display: inline-block;
+    animation: checkPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 @keyframes checkPop {
-  0% {
-    transform: scale(0);
-  }
+    0% {
+        transform: scale(0);
+    }
 }
 
 .dropdown-container {
-  position: relative;
+    position: relative;
 }
 
 .icon-btn {
-  background: transparent;
-  color: var(--text-muted);
-  border: none;
-  padding: 4px;
-  cursor: pointer;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, color 0.2s;
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        background 0.2s,
+        color 0.2s;
 }
 
 .icon-btn:hover {
-  background: var(--bg-hover);
-  color: var(--text-dark);
+    background: var(--bg-hover);
+    color: var(--text-dark);
 }
 
 .dropdown-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: var(--bg-card);
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  padding: 8px 0;
-  min-width: 180px;
-  z-index: 100;
-  animation: dropFade 0.2s ease-out;
-  border: 1px solid var(--border-light);
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--bg-card);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+    min-width: 180px;
+    z-index: 100;
+    animation: dropFade 0.2s ease-out;
+    border: 1px solid var(--border-light);
 }
 
 @keyframes dropFade {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .dropdown-item {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 10px 16px;
-  background: transparent;
-  border: none;
-  text-align: left;
-  font-size: 0.9rem;
-  color: var(--text-dark);
-  cursor: pointer;
-  transition: background 0.2s;
-  font-family: inherit;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: inherit;
 }
 
 .dropdown-item:hover {
-  background: var(--bg-milky);
+    background: var(--bg-milky);
 }
 
 .dropdown-item .icon {
-  margin-right: 10px;
-  font-size: 1.1rem;
-  opacity: 0.7;
+    margin-right: 10px;
+    font-size: 1.1rem;
+    opacity: 0.7;
 }
 
 .dropdown-item.delete {
-  color: var(--text-danger);
+    color: var(--text-danger);
 }
 
 .dropdown-item.delete:hover {
-  background: var(--bg-danger-hover);
+    background: var(--bg-danger-hover);
 }
 
 .added-state {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .added-state .badge {
-  padding: 8px 16px;
-  font-size: 0.95rem;
+    padding: 8px 16px;
+    font-size: 0.95rem;
 }
 
 .library-footer {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
 }
 
 .action-wrapper {
-  flex: 1;
+    flex: 1;
 }
 
 .share-btn {
-  background: transparent;
-  border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-  opacity: 0.6;
-  transition: all 0.2s;
-  flex-shrink: 0;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    opacity: 0.6;
+    transition: all 0.2s;
+    flex-shrink: 0;
 }
 
 .share-btn:hover {
-  background: var(--bg-hover);
-  color: var(--text-dark);
-  opacity: 1;
+    background: var(--bg-hover);
+    color: var(--text-dark);
+    opacity: 1;
 }

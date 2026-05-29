@@ -1,303 +1,312 @@
 .answers-page {
-  animation: fadeIn 0.4s ease-out;
-  padding-top: 20px;
+    animation: fadeIn 0.4s ease-out;
+    padding-top: 20px;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .emotional-header {
-  text-align: center;
-  margin-bottom: 34px;
+    text-align: center;
+    margin-bottom: 34px;
 }
 
 .section-title {
-  font-size: 2.2rem;
-  color: white;
-  margin-bottom: 10px;
+    font-size: 2.2rem;
+    color: white;
+    margin-bottom: 10px;
 }
 
 .divider {
-  border: none;
-  border-top: 1px solid rgba(212, 175, 55, 0.4);
-  margin: 0 auto 20px;
-  width: 100px;
+    border: none;
+    border-top: 1px solid rgba(212, 175, 55, 0.4);
+    margin: 0 auto 20px;
+    width: 100px;
 }
 
 .emotional-subtitle {
-  font-size: 1.1rem;
-  color: white;
-  font-style: italic;
-  font-family: var(--font-heading);
-  line-height: 1.5;
-  max-width: 80%;
-  margin: 0 auto;
+    font-size: 1.1rem;
+    color: white;
+    font-style: italic;
+    font-family: var(--font-heading);
+    line-height: 1.5;
+    max-width: 80%;
+    margin: 0 auto;
 }
 
 .answered-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 .answer-card {
-  position: relative;
-  --answer-ink: var(--text-dark);
-  --answer-muted: var(--text-muted);
-  --answer-gold: var(--text-category);
-  background: var(--bg-answered);
-  border: 1px solid rgba(212, 175, 55, 0.15);
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: var(--shadow-soft);
-  color: var(--answer-ink);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    --answer-ink: var(--text-dark);
+    --answer-muted: var(--text-muted);
+    --answer-gold: var(--text-category);
+    background: var(--bg-answered);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow-soft);
+    color: var(--answer-ink);
+    transition:
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
 }
 
 .answer-card:hover {
-  box-shadow: var(--shadow-hover);
+    box-shadow: var(--shadow-hover);
 }
 
 .answer-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
 }
 
 .header-actions {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .category-pill,
 .answered-pill {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  padding: 3px 9px;
-  font-size: 0.74rem;
-  font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 3px 9px;
+    font-size: 0.74rem;
+    font-weight: 600;
 }
 
 .category-pill {
-  position: relative;
-  background: var(--bg-category);
-  color: var(--answer-gold);
-  padding-left: 20px;
+    position: relative;
+    background: var(--bg-category);
+    color: var(--answer-gold);
+    padding-left: 20px;
 }
 
 .category-pill::before {
-  content: "";
-  position: absolute;
-  left: 8px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--answer-gold);
+    content: "";
+    position: absolute;
+    left: 8px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--answer-gold);
 }
 
 .answered-pill {
-  color: var(--answer-gold);
-  background: var(--bg-category);
-  border: 1px solid rgba(212, 175, 55, 0.18);
+    color: var(--answer-gold);
+    background: var(--bg-category);
+    border: 1px solid rgba(212, 175, 55, 0.18);
 }
 
 .answer-menu {
-  position: relative;
+    position: relative;
 }
 
 .answer-menu summary {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  color: var(--answer-muted);
-  background: transparent;
-  cursor: pointer;
-  list-style: none;
-  transition: background 0.2s, color 0.2s;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--answer-muted);
+    background: transparent;
+    cursor: pointer;
+    list-style: none;
+    transition:
+        background 0.2s,
+        color 0.2s;
 }
 
 .answer-menu summary::-webkit-details-marker {
-  display: none;
+    display: none;
 }
 
 .answer-menu summary:hover {
-  color: var(--answer-ink);
-  background: var(--bg-hover);
+    color: var(--answer-ink);
+    background: var(--bg-hover);
 }
 
 .answer-menu svg {
-  width: 18px;
-  height: 18px;
+    width: 18px;
+    height: 18px;
 }
 
 .answer-menu-list {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  z-index: 5;
-  min-width: 178px;
-  padding: 6px;
-  border: 1px solid var(--border-light);
-  border-radius: 8px;
-  background: var(--bg-card);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 5;
+    min-width: 178px;
+    padding: 6px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background: var(--bg-card);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .answer-menu-list button {
-  width: 100%;
-  padding: 9px 10px;
-  border-radius: 6px;
-  color: var(--answer-muted);
-  text-align: left;
-  font-size: 0.82rem;
-  transition: background 0.2s, color 0.2s;
+    width: 100%;
+    padding: 9px 10px;
+    border-radius: 6px;
+    color: var(--answer-muted);
+    text-align: left;
+    font-size: 0.82rem;
+    transition:
+        background 0.2s,
+        color 0.2s;
 }
 
 .answer-menu-list button:hover {
-  color: var(--answer-ink);
-  background: var(--bg-milky);
+    color: var(--answer-ink);
+    background: var(--bg-milky);
 }
 
 .answer-menu-list .danger {
-  color: var(--text-danger);
+    color: var(--text-danger);
 }
 
 .dua-text {
-  color: var(--answer-ink);
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  font-weight: 500;
-  line-height: 1.6;
-  margin-bottom: 12px;
+    color: var(--answer-ink);
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 12px;
 }
 
 .answer-dates {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  color: var(--answer-muted);
-  font-size: 0.82rem;
-  line-height: 1.35;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    color: var(--answer-muted);
+    font-size: 0.82rem;
+    line-height: 1.35;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
 }
 
 .gratitude-block {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 44px;
-  gap: 10px;
-  align-items: end;
-  margin-top: 9px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 44px;
+    gap: 10px;
+    align-items: end;
+    margin-top: 9px;
 }
 
 .gratitude-note {
-  display: block;
+    display: block;
 }
 
 .gratitude-note span {
-  display: block;
-  color: var(--answer-gold);
-  font-size: 0.82rem;
-  font-weight: 700;
-  margin-bottom: 4px;
+    display: block;
+    color: var(--answer-gold);
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 4px;
 }
 
 .gratitude-note textarea {
-  width: 100%;
-  min-height: 50px;
-  resize: none;
-  border: 1px solid var(--border-light);
-  border-radius: 8px;
-  padding: 10px;
-  background: var(--bg-milky);
-  color: var(--answer-ink);
-  font-family: var(--font-body);
-  font-size: 0.84rem;
-  font-weight: 600;
-  line-height: 1.45;
-  transition: border-color 0.2s, box-shadow 0.2s, padding 0.2s;
+    width: 100%;
+    min-height: 50px;
+    resize: none;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 10px;
+    background: var(--bg-milky);
+    color: var(--answer-ink);
+    font-family: var(--font-body);
+    font-size: 0.84rem;
+    font-weight: 600;
+    line-height: 1.45;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s,
+        padding 0.2s;
 }
 
 .gratitude-note textarea:focus {
-  outline: none;
-  border-color: rgba(212, 175, 55, 0.5);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    outline: none;
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
 }
 
 .gratitude-note textarea::placeholder {
-  color: var(--text-muted);
-  font-weight: 500;
+    color: var(--text-muted);
+    font-weight: 500;
 }
 
 .gratitude-heart {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  color: var(--answer-gold);
-  background: var(--bg-category);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--answer-gold);
+    background: var(--bg-category);
 }
 
 .gratitude-heart svg {
-  width: 18px;
-  height: 18px;
+    width: 18px;
+    height: 18px;
 }
 
 .empty-state {
-  text-align: center;
-  margin-top: 60px;
-  color: var(--text-muted);
+    text-align: center;
+    margin-top: 60px;
+    color: var(--text-muted);
 }
 
 .empty-state .icon {
-  font-size: 3rem;
-  margin-bottom: 15px;
-  opacity: 0.6;
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.6;
 }
 
 .action-btn-link {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  background: var(--bg-card);
-  color: var(--accent-sand);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  transition: all 0.2s;
-  font-size: 0.95rem;
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: var(--bg-card);
+    color: var(--accent-sand);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    transition: all 0.2s;
+    font-size: 0.95rem;
 }
 
 .action-btn-link:hover {
-  background: #fff;
-  border-color: rgba(212, 175, 55, 0.5);
+    background: #fff;
+    border-color: rgba(212, 175, 55, 0.5);
 }
 
 @media (max-width: 520px) {
-  .emotional-subtitle {
-    max-width: 100%;
-  }
+    .emotional-subtitle {
+        max-width: 100%;
+    }
 
-  .gratitude-block {
-    grid-template-columns: 1fr;
-  }
+    .gratitude-block {
+        grid-template-columns: 1fr;
+    }
 
-  .gratitude-heart {
-    justify-self: end;
-  }
+    .gratitude-heart {
+        justify-self: end;
+    }
 }
