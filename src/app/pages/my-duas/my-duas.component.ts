@@ -5,11 +5,10 @@ import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 
 @Component({
-  selector: 'app-my-duas',
-  standalone: true,
-  imports: [CommonModule, DuaCardComponent, AddDuaModalComponent],
-  templateUrl: './my-duas.component.html',
-  styleUrl: './my-duas.component.css'
+    selector: 'app-my-duas',
+    imports: [CommonModule, DuaCardComponent, AddDuaModalComponent],
+    templateUrl: './my-duas.component.html',
+    styleUrl: './my-duas.component.css'
 })
 export class MyDuasComponent {
   private duaService = inject(DuaService);

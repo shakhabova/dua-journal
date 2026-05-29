@@ -6,11 +6,10 @@ import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-mod
 import { Dua } from '../../models/dua.model';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [CommonModule, DuaCardComponent, AddDuaModalComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+    selector: 'app-home',
+    imports: [CommonModule, DuaCardComponent, AddDuaModalComponent],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css'
 })
 export class HomeComponent {
   private duaService = inject(DuaService);

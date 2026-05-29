@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-add-dua-modal',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './add-dua-modal.component.html',
-  styleUrl: './add-dua-modal.component.css'
+    selector: 'app-add-dua-modal',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './add-dua-modal.component.html',
+    styleUrl: './add-dua-modal.component.css'
 })
 export class AddDuaModalComponent implements OnInit {
   @Input() editMode = false;

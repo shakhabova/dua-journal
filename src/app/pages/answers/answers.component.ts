@@ -6,11 +6,10 @@ import { RouterModule } from '@angular/router';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 
 @Component({
-  selector: 'app-answers',
-  standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, AddDuaModalComponent],
-  templateUrl: './answers.component.html',
-  styleUrl: './answers.component.css'
+    selector: 'app-answers',
+    imports: [CommonModule, FormsModule, RouterModule, AddDuaModalComponent],
+    templateUrl: './answers.component.html',
+    styleUrl: './answers.component.css'
 })
 export class AnswersComponent {
   private duaService = inject(DuaService);

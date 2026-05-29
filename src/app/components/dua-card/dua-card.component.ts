@@ -3,11 +3,10 @@ import { CommonModule, DatePipe } from '@angular/common';
 import html2canvas from 'html2canvas';
 
 @Component({
-  selector: 'app-dua-card',
-  standalone: true,
-  imports: [CommonModule, DatePipe],
-  templateUrl: './dua-card.component.html',
-  styleUrl: './dua-card.component.css'
+    selector: 'app-dua-card',
+    imports: [CommonModule, DatePipe],
+    templateUrl: './dua-card.component.html',
+    styleUrl: './dua-card.component.css'
 })
 export class DuaCardComponent {
   @Input() id?: string;
