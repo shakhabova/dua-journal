@@ -1,0 +1,11 @@
+node_modules
+.angular
+dist
+.git
+.gitignore
+.vscode
+.antigravitycli
+supabase
+README.md
+Dockerfile
+fly.toml
