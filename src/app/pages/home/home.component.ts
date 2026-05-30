@@ -3,6 +3,7 @@ import {
     Component,
     computed,
     inject,
+    resource,
     signal,
 } from '@angular/core';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
@@ -20,17 +21,29 @@ import { DuaService } from '../../services/dua.service';
 export class HomeComponent {
     private duaService = inject(DuaService);
 
-    dailyDua = signal<Dua>(this.duaService.getDailyDua());
-    quranDuas = signal<Dua[]>(
-        this.duaService.getLibraryDuas().filter((d) => d.source === 'Quran'),
+    userDuasResource = resource({
+        loader: () => this.duaService.getUserDuas(),
+    });
+
+    libraryDuasResource = resource({
+        loader: () => this.duaService.getLibraryDuas(),
+    });
+
+    dailyDua = computed<Dua | undefined>(() => {
+        const duas = this.libraryDuasResource.value() ?? [];
+        return duas[0];
+    });
+
+    quranDuas = computed(() =>
+        (this.libraryDuasResource.value() ?? []).filter((d) => d.source === 'Quran'),
     );
-    sunnahDuas = signal<Dua[]>(
-        this.duaService.getLibraryDuas().filter((d) => d.source === 'Sunnah'),
+
+    sunnahDuas = computed(() =>
+        (this.libraryDuasResource.value() ?? []).filter((d) => d.source === 'Sunnah'),
     );
 
     addedDuaIds = computed(() => {
-        const ids = this.duaService
-            .userDuas()
+        const ids = (this.userDuasResource.value() ?? [])
             .map((dua) => dua.originalDuaId)
             .filter((id): id is string => !!id);
         return new Set(ids);
@@ -58,5 +71,6 @@ export class HomeComponent {
             reference: dua.reference,
         });
         this.closeCategoryModal();
+        this.userDuasResource.reload();
     }
 }

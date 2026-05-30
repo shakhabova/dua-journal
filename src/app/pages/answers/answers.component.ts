@@ -4,10 +4,14 @@ import {
     Component,
     computed,
     inject,
+    resource,
     signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 import { DuaService } from '../../services/dua.service';
 
@@ -20,9 +24,14 @@ import { DuaService } from '../../services/dua.service';
 })
 export class AnswersComponent {
     private duaService = inject(DuaService);
+    private noteUpdate$ = new Subject<{ id: string; note: string }>();
+
+    userDuasResource = resource({
+        loader: () => this.duaService.getUserDuas(),
+    });
 
     answeredDuas = computed(() =>
-        this.duaService.userDuas().filter((d) => d.isAnswered),
+        (this.userDuasResource.value() ?? []).filter((d) => d.isAnswered),
     );
 
     isModalOpen = signal(false);
@@ -30,6 +39,14 @@ export class AnswersComponent {
     editingDuaId = signal<string | null>(null);
     editInitialText = signal('');
     editInitialCategory = signal('');
+
+    constructor() {
+        this.noteUpdate$
+            .pipe(debounceTime(300), takeUntilDestroyed())
+            .subscribe(({ id, note }) => {
+                this.duaService.updateAnswerNote(id, note);
+            });
+    }
 
     openEditModal(id: string) {
         const dua = this.answeredDuas().find((d) => d.id === id);
@@ -47,25 +64,29 @@ export class AnswersComponent {
     }
 
     saveNewDua(data: { text: string; category: string }) {
-        if (this.isEditMode() && this.editingDuaId()) {
+        const editingDuaId = this.editingDuaId();
+        if (this.isEditMode() && editingDuaId) {
             this.duaService.updateUserDua(
-                this.editingDuaId()!,
+                editingDuaId,
                 data.text,
                 data.category,
             );
         }
         this.closeModal();
+        this.userDuasResource.reload();
     }
 
     deleteDua(id: string) {
         this.duaService.deleteUserDua(id);
+        this.userDuasResource.reload();
     }
 
     unmarkAnswered(id: string) {
         this.duaService.unmarkAsAnswered(id);
+        this.userDuasResource.reload();
     }
 
     updateAnswerNote(id: string, note: string) {
-        this.duaService.updateAnswerNote(id, note);
+        this.noteUpdate$.next({ id, note });
     }
 }

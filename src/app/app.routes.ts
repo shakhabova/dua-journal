@@ -1,11 +1,14 @@
 import type { Routes } from '@angular/router';
 import { AnswersComponent } from './pages/answers/answers.component';
 import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
 import { MyDuasComponent } from './pages/my-duas/my-duas.component';
+import { authGuard } from './services/auth.guard';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'my-duas', component: MyDuasComponent },
-    { path: 'answers', component: AnswersComponent },
+    { path: 'login', component: LoginComponent },
+    { path: '', component: HomeComponent, canActivate: [authGuard] },
+    { path: 'my-duas', component: MyDuasComponent, canActivate: [authGuard] },
+    { path: 'answers', component: AnswersComponent, canActivate: [authGuard] },
     { path: '**', redirectTo: '' },
 ];

@@ -310,3 +310,129 @@
         justify-self: end;
     }
 }
+
+/* Skeleton Loading State */
+.skeleton-card {
+    pointer-events: none;
+    border-color: rgba(212, 175, 55, 0.08);
+}
+
+.skeleton-pill,
+.skeleton-line,
+.skeleton-textarea {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-badge);
+    border-radius: 6px;
+}
+
+.skeleton-pill {
+    height: 22px;
+    border-radius: 999px;
+}
+
+.skeleton-pill.category {
+    width: 80px;
+}
+
+.skeleton-pill.status {
+    width: 100px;
+}
+
+.skeleton-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+    margin-top: 6px;
+}
+
+.skeleton-line {
+    height: 14px;
+    width: 100%;
+}
+
+.skeleton-line.line-1 {
+    width: 90%;
+}
+
+.skeleton-line.line-2 {
+    width: 95%;
+}
+
+.skeleton-line.line-3 {
+    width: 60%;
+}
+
+.skeleton-dates {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 12px;
+}
+
+.skeleton-line.date {
+    height: 12px;
+    width: 150px;
+}
+
+.skeleton-gratitude {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    grid-template-columns: 1fr !important;
+}
+
+.skeleton-line.label {
+    height: 12px;
+    width: 110px;
+}
+
+.skeleton-textarea {
+    height: 60px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* Shimmer animation overlay */
+.skeleton-pill::after,
+.skeleton-line::after,
+.skeleton-textarea::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.4) 35%,
+        rgba(255, 255, 255, 0.7) 50%,
+        rgba(255, 255, 255, 0.4) 65%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 1.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .skeleton-pill::after,
+[data-theme="dark"] .skeleton-line::after,
+[data-theme="dark"] .skeleton-textarea::after {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.05) 35%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.05) 65%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}

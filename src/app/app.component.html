@@ -1,19 +1,30 @@
 <div class="app-container">
   <!-- Top Header based on mockup -->
-  <header class="app-header">
-    <div class="header-content container">
-      <h1 class="logo">
-        Личное пространство ду‘а
-        <button class="theme-toggle-btn" (click)="toggleTheme()" [attr.aria-label]="isDark() ? 'Включить светлую тему' : 'Включить темную тему'">
-          <span class="icon">{{ isDark() ? '☀️' : '🌙' }}</span>
-        </button>
-      </h1>
-    </div>
-  </header>
+  @if (isAuthenticated()) {
+    <header class="app-header">
+      <div class="header-content container">
+        <div class="header-inner">
+          <h1 class="logo">Личное пространство ду‘а</h1>
+          <div class="header-actions">
+            <button class="theme-toggle-btn" (click)="toggleTheme()" [attr.aria-label]="isDark() ? 'Включить светлую тему' : 'Включить темную тему'">
+              <span class="icon">{{ isDark() ? '☀️' : '🌙' }}</span>
+            </button>
+            <button class="logout-btn" (click)="logout()" aria-label="Выйти из системы">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="logout-icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+  }
 
-  <main class="main-content">
+  <main class="main-content" [class.no-padding]="!isAuthenticated()">
     <router-outlet></router-outlet>
   </main>
 
-  <app-navbar></app-navbar>
+  @if (isAuthenticated()) {
+    <app-navbar></app-navbar>
+  }
 </div>

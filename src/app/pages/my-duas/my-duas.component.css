@@ -131,3 +131,129 @@
     border-color: rgba(212, 175, 55, 0.4);
     color: var(--text-dark);
 }
+
+/* Skeleton Loading State */
+.skeleton-card {
+    pointer-events: none;
+    border-color: var(--border-light);
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 0px !important; /* Managed by cards-list container */
+    box-shadow: var(--shadow-soft);
+}
+
+.skeleton-pill,
+.skeleton-line,
+.skeleton-circle {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-badge);
+    border-radius: 6px;
+}
+
+.skeleton-pill {
+    height: 22px;
+    border-radius: 999px;
+}
+
+.skeleton-pill.category {
+    width: 80px;
+}
+
+.skeleton-pill.button {
+    width: 90px;
+    height: 28px;
+    border-radius: 20px;
+}
+
+.skeleton-circle.menu-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.skeleton-line {
+    height: 14px;
+    width: 100%;
+}
+
+.skeleton-line.line-1 {
+    width: 90%;
+}
+
+.skeleton-line.line-2 {
+    width: 95%;
+}
+
+.skeleton-line.line-3 {
+    width: 60%;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-light);
+    padding-top: 15px;
+}
+
+.skeleton-line.date {
+    height: 12px;
+    width: 100px;
+}
+
+/* Shimmer animation overlay */
+.skeleton-pill::after,
+.skeleton-line::after,
+.skeleton-circle::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.4) 35%,
+        rgba(255, 255, 255, 0.7) 50%,
+        rgba(255, 255, 255, 0.4) 65%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 1.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .skeleton-pill::after,
+[data-theme="dark"] .skeleton-line::after,
+[data-theme="dark"] .skeleton-circle::after {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.05) 35%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.05) 65%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}

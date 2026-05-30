@@ -33,21 +33,41 @@
   <hr class="divider line-only">
 
   <div class="cards-list">
-    @for (dua of filteredDuas(); track dua) {
-      <app-dua-card
-        [id]="dua.id"
-        [text]="dua.text"
-        [textAr]="dua.textAr"
-        [transcription]="dua.transcription"
-        [reference]="dua.reference"
-        [category]="dua.category"
-        [date]="dua.dateAdded"
-        [isAnswered]="!dua.isAnswered ? false : true"
-        (markAnswered)="markAnswered($event)"
-        (editClicked)="openEditModal($event)"
-        (deleteClicked)="deleteDua($event)"
-        (unmarkAnswered)="unmarkAnswered($event)">
-      </app-dua-card>
+    @if (userDuasResource.isLoading()) {
+      @for (i of [1, 2, 3]; track i) {
+        <div class="dua-card skeleton-card">
+          <div class="card-header">
+            <div class="skeleton-pill category"></div>
+            <div class="skeleton-circle menu-btn"></div>
+          </div>
+          <div class="card-content">
+            <div class="skeleton-line line-1"></div>
+            <div class="skeleton-line line-2"></div>
+            <div class="skeleton-line line-3"></div>
+          </div>
+          <div class="card-footer">
+            <div class="skeleton-line date"></div>
+            <div class="skeleton-pill button"></div>
+          </div>
+        </div>
+      }
+    } @else {
+      @for (dua of filteredDuas(); track dua) {
+        <app-dua-card
+          [id]="dua.id"
+          [text]="dua.text"
+          [textAr]="dua.textAr"
+          [transcription]="dua.transcription"
+          [reference]="dua.reference"
+          [category]="dua.category"
+          [date]="dua.dateAdded"
+          [isAnswered]="!dua.isAnswered ? false : true"
+          (markAnswered)="markAnswered($event)"
+          (editClicked)="openEditModal($event)"
+          (deleteClicked)="deleteDua($event)"
+          (unmarkAnswered)="unmarkAnswered($event)">
+        </app-dua-card>
+      }
     }
   </div>
 

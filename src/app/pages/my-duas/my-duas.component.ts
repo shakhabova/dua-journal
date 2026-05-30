@@ -3,6 +3,7 @@ import {
     Component,
     computed,
     inject,
+    resource,
     signal,
 } from '@angular/core';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
@@ -19,7 +20,11 @@ import { DuaService } from '../../services/dua.service';
 export class MyDuasComponent {
     private duaService = inject(DuaService);
 
-    myDuas = this.duaService.userDuas;
+    userDuasResource = resource({
+        loader: () => this.duaService.getUserDuas(),
+    });
+
+    myDuas = computed(() => this.userDuasResource.value() ?? []);
 
     categories = ['Все', 'Ризк', 'Семья', 'Здоровье', 'Друзья', 'Работа'];
     selectedFilter = signal<string>('Все');
@@ -72,9 +77,10 @@ export class MyDuasComponent {
     }
 
     saveNewDua(data: { text: string; category: string }) {
-        if (this.isEditMode() && this.editingDuaId()) {
+        const editingDuaId = this.editingDuaId();
+        if (this.isEditMode() && editingDuaId) {
             this.duaService.updateUserDua(
-                this.editingDuaId()!,
+                editingDuaId,
                 data.text,
                 data.category,
             );
@@ -82,18 +88,22 @@ export class MyDuasComponent {
             this.duaService.addUserDua(data.text, data.category);
         }
         this.closeModal();
+        this.userDuasResource.reload();
     }
 
     markAnswered(duaId: string) {
         this.duaService.markAsAnswered(duaId);
+        this.userDuasResource.reload();
     }
 
     deleteDua(id: string) {
         this.duaService.deleteUserDua(id);
+        this.userDuasResource.reload();
     }
 
     unmarkAnswered(id: string) {
         this.duaService.unmarkAsAnswered(id);
+        this.userDuasResource.reload();
     }
 
     setFilter(category: string) {

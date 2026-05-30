@@ -5,7 +5,33 @@
     <p class="emotional-subtitle">Раздел благодарности и радости. Место, где хранятся исполненные надежды.</p>
   </div>
 
-  @if (answeredDuas().length > 0) {
+  @if (userDuasResource.isLoading()) {
+    <div class="answered-list">
+      @for (i of [1, 2]; track i) {
+        <div class="answer-card skeleton-card">
+          <div class="answer-card-header">
+            <div class="skeleton-pill category"></div>
+            <div class="header-actions">
+              <div class="skeleton-pill status"></div>
+            </div>
+          </div>
+          <div class="skeleton-body">
+            <div class="skeleton-line line-1"></div>
+            <div class="skeleton-line line-2"></div>
+            <div class="skeleton-line line-3"></div>
+          </div>
+          <div class="skeleton-dates">
+            <div class="skeleton-line date"></div>
+            <div class="skeleton-line date"></div>
+          </div>
+          <div class="gratitude-block skeleton-gratitude">
+            <div class="skeleton-line label"></div>
+            <div class="skeleton-textarea"></div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else if (answeredDuas().length > 0) {
     <div class="answered-list">
       @for (dua of answeredDuas(); track dua) {
         <article class="answer-card">
