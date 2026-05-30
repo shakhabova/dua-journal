@@ -7,7 +7,7 @@ export interface CustomUser {
     id: string;
     email: string;
     user_metadata: {
-        telegram_id: number;
+        telegram_id: number | string;
         username: string;
         first_name: string;
         last_name: string;
@@ -109,6 +109,49 @@ export class SupabaseService {
                     err.message ||
                     'An error occurred during OIDC login exchange',
             };
+        }
+    }
+
+    public isTelegramMiniApp(): boolean {
+        if (typeof window === 'undefined') return false;
+        const tg = (window as any).Telegram?.WebApp;
+        return !!(tg && tg.initData && tg.initData.length > 0);
+    }
+
+    async loginWithTelegramMiniApp(): Promise<boolean> {
+        try {
+            const tg = (window as any).Telegram?.WebApp;
+            if (!tg || !tg.initData) {
+                return false;
+            }
+
+            // Invoke our serverless Deno Edge Function with initData
+            const { data, error } = await this.supabase.functions.invoke(
+                'telegram-custom-auth',
+                {
+                    body: { initData: tg.initData },
+                },
+            );
+
+            if (error || !data?.success) {
+                console.error(
+                    'Telegram Mini App auth failed:',
+                    error || data?.error,
+                );
+                return false;
+            }
+
+            // Store the newly minted Custom JWT in LocalStorage
+            const token = data.token;
+            localStorage.setItem(this.tokenKey, token);
+
+            // Re-initialize the client with our new authenticated state
+            this.initializeClient();
+
+            return true;
+        } catch (err) {
+            console.error('Error during Telegram Mini App login:', err);
+            return false;
         }
     }
 

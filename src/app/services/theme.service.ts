@@ -15,14 +15,25 @@ export class ThemeService {
     private initTheme() {
         if (!isPlatformBrowser(this.platformId)) return;
 
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            this.isDarkTheme.set(savedTheme === 'dark');
+        const tg = (window as any).Telegram?.WebApp;
+        if (tg && tg.colorScheme) {
+            this.isDarkTheme.set(tg.colorScheme === 'dark');
+
+            // Listen to dynamic theme changes from Telegram Mini App container
+            tg.onEvent('themeChanged', () => {
+                this.isDarkTheme.set(tg.colorScheme === 'dark');
+                this.applyTheme();
+            });
         } else {
-            const prefersDark = window.matchMedia?.(
-                '(prefers-color-scheme: dark)',
-            ).matches;
-            this.isDarkTheme.set(prefersDark);
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                this.isDarkTheme.set(savedTheme === 'dark');
+            } else {
+                const prefersDark = window.matchMedia?.(
+                    '(prefers-color-scheme: dark)',
+                ).matches;
+                this.isDarkTheme.set(prefersDark);
+            }
         }
         this.applyTheme();
     }
