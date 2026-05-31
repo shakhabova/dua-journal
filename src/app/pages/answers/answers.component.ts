@@ -10,7 +10,6 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { LucideDynamicIcon } from '@lucide/angular';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
@@ -25,7 +24,6 @@ import { DuaService } from '../../services/dua.service';
         RouterModule,
         AddDuaModalComponent,
         DuaCardComponent,
-        LucideDynamicIcon,
     ],
     templateUrl: './answers.component.html',
     styleUrl: './answers.component.css',
