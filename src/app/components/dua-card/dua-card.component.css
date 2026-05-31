@@ -171,6 +171,7 @@
     line-height: 1.6;
     color: var(--text-dark);
     margin-bottom: auto;
+    text-wrap: balance;
 }
 
 .main-text {
@@ -422,4 +423,3 @@
     display: inline-flex;
     stroke-width: 2.5px;
 }
-
