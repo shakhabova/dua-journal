@@ -104,5 +104,5 @@ button {
 
 /* Telegram Mini App Immersive Safe Insets */
 .is-telegram .app-header {
-    padding-top: calc(var(--tg-safe-area-inset-top, 45px) + 35px) !important;
+    padding-top: calc(var(--tg-safe-area-inset-top, 45px) + 40px) !important;
 }

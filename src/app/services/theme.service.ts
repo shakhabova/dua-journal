@@ -62,7 +62,9 @@ export class ThemeService {
         }
 
         // Update the meta tag for browser theme-color
-        const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+        const metaThemeColor = document.querySelector(
+            'meta[name="theme-color"]',
+        );
         if (metaThemeColor) {
             metaThemeColor.setAttribute('content', themeColor);
         }

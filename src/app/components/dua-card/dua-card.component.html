@@ -79,7 +79,7 @@
 
             <div class="card-content">
                 <p class="dua-text" [class.main-text]="isMain()">
-                    {{ isMain() ? '"' + text() + '"' : text() }}
+                    "{{ text() }}"
                 </p>
                 @if (reference()) {
                     <p class="dua-ref">{{ reference() }}</p>

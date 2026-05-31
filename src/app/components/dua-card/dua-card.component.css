@@ -172,6 +172,7 @@
     color: var(--text-dark);
     margin-bottom: auto;
     text-wrap: balance;
+    text-align: center;
 }
 
 .main-text {

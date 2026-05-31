@@ -1,5 +1,4 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { LucideDynamicIcon } from '@lucide/angular';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -10,6 +9,7 @@ import {
     Output,
     signal,
 } from '@angular/core';
+import { LucideDynamicIcon } from '@lucide/angular';
 
 @Component({
     selector: 'app-dua-card',
@@ -45,9 +45,7 @@ export class DuaCardComponent {
     isFlipped = signal(false);
     showDropdown = signal(false);
 
-    constructor(
-        private eRef: ElementRef,
-    ) {}
+    constructor(private eRef: ElementRef) { }
 
     @HostListener('document:click', ['$event'])
     clickout(event: Event) {
@@ -106,7 +104,15 @@ export class DuaCardComponent {
             const ref = this.reference()!.toLowerCase();
             if (ref.includes('коран') || ref.includes('сура')) {
                 sourceLabel = 'Коран';
-            } else if (ref.includes('бухари') || ref.includes('муслим') || ref.includes('тирмизи') || ref.includes('дауд') || ref.includes('ахмад') || ref.includes('хаким') || ref.includes('табарани')) {
+            } else if (
+                ref.includes('бухари') ||
+                ref.includes('муслим') ||
+                ref.includes('тирмизи') ||
+                ref.includes('дауд') ||
+                ref.includes('ахмад') ||
+                ref.includes('хаким') ||
+                ref.includes('табарани')
+            ) {
                 sourceLabel = 'Сунна';
             }
         }
@@ -128,12 +134,12 @@ export class DuaCardComponent {
             shareText += `${sourceLine}\n\n\u200E`;
         }
 
-        shareText += `—\nЛичное пространство ду‘а\ndua-journal.com`;
+        shareText += `—\nЛичное пространство ду’а\ndua-journal.com`;
 
         if (navigator.share) {
             try {
                 await navigator.share({
-                    title: 'Личное пространство ду‘а',
+                    title: 'Личное пространство ду’а',
                     text: shareText,
                 });
             } catch (e) {
@@ -142,7 +148,7 @@ export class DuaCardComponent {
         } else {
             try {
                 await navigator.clipboard.writeText(shareText);
-                alert('Текст ду‘а скопирован в буфер обмена!');
+                alert('Текст ду’а скопирован в буфер обмена!');
             } catch (err) {
                 console.error('Failed to copy', err);
             }

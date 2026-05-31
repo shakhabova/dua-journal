@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, type OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { SupabaseService } from '../../services/supabase.service';
 import { LucideDynamicIcon } from '@lucide/angular';
+import { SupabaseService } from '../../services/supabase.service';
 
 @Component({
     selector: 'app-login',
