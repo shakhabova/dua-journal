@@ -15,11 +15,16 @@ import { debounceTime } from 'rxjs/operators';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
 import { DuaService } from '../../services/dua.service';
-import { LucideDynamicIcon } from '@lucide/angular';
 
 @Component({
     selector: 'app-answers',
-    imports: [CommonModule, FormsModule, RouterModule, AddDuaModalComponent, DuaCardComponent, LucideDynamicIcon],
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        AddDuaModalComponent,
+        DuaCardComponent,
+    ],
     templateUrl: './answers.component.html',
     styleUrl: './answers.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,

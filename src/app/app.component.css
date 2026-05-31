@@ -22,9 +22,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 0 48px;
-    /* Leave space on the right for absolute-positioned exit button */
 }
 
 .logo {
@@ -100,3 +97,4 @@
 .main-content.no-padding {
     padding-bottom: 0;
 }
+
