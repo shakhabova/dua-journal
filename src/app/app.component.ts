@@ -23,8 +23,16 @@ export class AppComponent implements OnInit {
         if (typeof window !== 'undefined') {
             const tg = (window as any).Telegram?.WebApp;
             if (tg) {
+                document.documentElement.classList.add('is-telegram');
                 tg.ready();
                 tg.expand();
+                if (tg.requestFullscreen) {
+                    try {
+                        tg.requestFullscreen();
+                    } catch (e) {
+                        console.error('Telegram WebApp requestFullscreen failed', e);
+                    }
+                }
             }
         }
     }

@@ -25,12 +25,15 @@
 }
 
 [data-theme="dark"] {
-    --bg-milky: #0c1218; /* Deep atmospheric blue-black */
-    --bg-card: #151d26; /* Slightly lighter card background */
+    --bg-milky: #0c1218;
+    /* Deep atmospheric blue-black */
+    --bg-card: #151d26;
+    /* Slightly lighter card background */
     --text-dark: #e8ebee;
     --text-light: #9ba6b1;
     --text-muted: #6e7a85;
-    --accent-sand: #dfbe54; /* Brighter gold for better contrast on dark */
+    --accent-sand: #dfbe54;
+    /* Brighter gold for better contrast on dark */
 
     --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.25);
     --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.45);
@@ -97,4 +100,9 @@ button {
     max-width: 800px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+/* Telegram Mini App Immersive Safe Insets */
+.is-telegram .app-header {
+    padding-top: calc(var(--tg-safe-area-inset-top, 45px) + 35px) !important;
 }
