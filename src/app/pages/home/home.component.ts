@@ -10,10 +10,11 @@ import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-mod
 import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
 import type { Dua } from '../../models/dua.model';
 import { DuaService } from '../../services/dua.service';
+import { LucideDynamicIcon } from '@lucide/angular';
 
 @Component({
     selector: 'app-home',
-    imports: [DuaCardComponent, AddDuaModalComponent],
+    imports: [DuaCardComponent, AddDuaModalComponent, LucideDynamicIcon],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, type OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { LucideDynamicIcon } from '@lucide/angular';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SupabaseService } from './services/supabase.service';
 import { ThemeService } from './services/theme.service';
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, NavbarComponent],
+    imports: [RouterOutlet, NavbarComponent, LucideDynamicIcon],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,

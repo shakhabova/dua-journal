@@ -10,23 +10,29 @@
 }
 
 .header-inner {
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     gap: 16px;
     width: 100%;
+}
+
+.logo-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 48px;
+    /* Leave space on the right for absolute-positioned exit button */
 }
 
 .logo {
     font-size: 2.2rem;
     letter-spacing: 0.5px;
     margin: 0;
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    line-height: 1.2;
+    text-align: center;
 }
 
 .theme-toggle-btn,
@@ -37,15 +43,24 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 8px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     transition: all 0.25s ease;
 }
 
 .theme-toggle-btn {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: var(--accent-sand);
     filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.2));
+}
+
+.theme-toggle-btn .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
 }
 
 .theme-toggle-btn:hover {
@@ -54,13 +69,16 @@
 }
 
 .logout-btn {
+    position: absolute;
+    right: 0;
     color: var(--text-secondary);
 }
 
 .logout-btn:hover {
     transform: scale(1.1);
     background-color: var(--card-bg);
-    color: #ef4444; /* red highlights for exits */
+    color: #ef4444;
+    /* red highlights for exits */
 }
 
 .logout-icon {

@@ -125,6 +125,12 @@
     align-items: center;
 }
 
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .card-header.has-dropdown {
     min-height: 24px;
 }
@@ -155,12 +161,16 @@
 
 .card-content {
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .dua-text {
     font-size: 1.1rem;
     line-height: 1.6;
     color: var(--text-dark);
+    margin-bottom: auto;
 }
 
 .main-text {
@@ -168,6 +178,7 @@
     font-size: 1.4rem;
     text-align: center;
     color: var(--text-dark);
+    margin-bottom: auto;
 }
 
 .dua-ref {
@@ -199,6 +210,10 @@
 }
 
 .action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     width: 100%;
     padding: 10px;
     border: 1px solid var(--border-light);
@@ -220,6 +235,10 @@
 }
 
 .mark-answered-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     padding: 6px 14px;
     background: transparent;
     color: var(--text-muted);
@@ -318,8 +337,11 @@
 
 .dropdown-item .icon {
     margin-right: 10px;
-    font-size: 1.1rem;
+    width: 16px;
+    height: 16px;
     opacity: 0.7;
+    display: inline-flex;
+    align-items: center;
 }
 
 .dropdown-item.delete {
@@ -373,3 +395,31 @@
     color: var(--text-dark);
     opacity: 1;
 }
+
+.icon-btn lucide-icon,
+.icon-btn svg {
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+}
+
+.share-btn lucide-icon,
+.share-btn svg {
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+}
+
+.btn-icon {
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+}
+
+.checkmark-icon {
+    width: 14px;
+    height: 14px;
+    display: inline-flex;
+    stroke-width: 2.5px;
+}
+

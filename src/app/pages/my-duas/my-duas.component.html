@@ -5,15 +5,15 @@
       <span class="stat-item"><strong>{{ activeCount() }}</strong> активно</span>
       <span class="stat-item"><strong>{{ answeredCount() }}</strong> отвечено</span>
     </div>
-    <button class="add-btn" (click)="openModal()">+ Добавить ду‘а</button>
+    <button class="add-btn" (click)="openModal()">
+      <svg lucideIcon="plus" class="btn-icon"></svg> Добавить ду‘а
+    </button>
   </div>
 
   <div class="actions-row">
     @if (myDuas().length > 0) {
       <button class="filter-toggle-btn" (click)="toggleFilter()" [class.active]="isFilterOpen()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-          <path d="M4 6h16M4 12h16M4 18h7"></path>
-        </svg>
+        <svg lucideIcon="sliders-horizontal" class="btn-icon"></svg>
         Фильтр {{ selectedFilter() !== 'Все' ? '· ' + selectedFilter() : '' }}
       </button>
     }

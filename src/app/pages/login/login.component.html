@@ -3,9 +3,7 @@
   <div class="login-card">
     <div class="logo-area">
       <div class="app-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-svg">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
-        </svg>
+        <svg lucideIcon="book-open" class="icon-svg"></svg>
       </div>
       <h1 class="app-title">Dua Journal</h1>
       <p class="app-subtitle">Record your prayers, preserve your moments of reflection, and track your answered supplications.</p>
@@ -33,9 +31,7 @@
 
       @if (errorMessage()) {
         <div class="error-banner">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="error-icon">
-            <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
-          </svg>
+          <svg lucideIcon="alert-circle" class="error-icon"></svg>
           <span class="error-msg">{{ errorMessage() }}</span>
         </div>
       }

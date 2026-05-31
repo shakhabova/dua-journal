@@ -22,8 +22,10 @@
         "@angular/platform-browser": "^21.2.15",
         "@angular/platform-browser-dynamic": "^21.2.15",
         "@angular/router": "^21.2.15",
+        "@lucide/angular": "^1.17.0",
         "@supabase/supabase-js": "^2.106.2",
         "html2canvas": "^1.4.1",
+        "lucide-angular": "^1.0.0",
         "rxjs": "~7.8.0",
         "tslib": "^2.3.0"
     },

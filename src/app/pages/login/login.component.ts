@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, type OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { SupabaseService } from '../../services/supabase.service';
+import { LucideDynamicIcon } from '@lucide/angular';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, LucideDynamicIcon],
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
 })

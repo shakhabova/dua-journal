@@ -34,6 +34,10 @@
 }
 
 .add-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     padding: 8px 16px;
     border: 1px solid var(--border-light);
     border-radius: 8px;
@@ -115,6 +119,7 @@
 .filter-toggle-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     background: transparent;
     color: var(--text-muted);
@@ -256,4 +261,10 @@
     100% {
         transform: translateX(100%);
     }
+}
+
+.btn-icon {
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
 }

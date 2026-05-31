@@ -9,10 +9,11 @@ import {
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
 import { DuaService } from '../../services/dua.service';
+import { LucideDynamicIcon } from '@lucide/angular';
 
 @Component({
     selector: 'app-my-duas',
-    imports: [DuaCardComponent, AddDuaModalComponent],
+    imports: [DuaCardComponent, AddDuaModalComponent, LucideDynamicIcon],
     templateUrl: './my-duas.component.html',
     styleUrl: './my-duas.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,7 +32,7 @@ export class MyDuasComponent {
 
     filteredDuas = computed(() => {
         const filter = this.selectedFilter();
-        const duas = this.myDuas();
+        const duas = this.myDuas().filter((d) => !d.isAnswered);
         if (filter === 'Все') return duas;
         return duas.filter((d) => d.category === filter);
     });

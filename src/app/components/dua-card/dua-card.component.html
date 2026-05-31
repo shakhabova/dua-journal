@@ -6,31 +6,34 @@
       [class.animating]="isAnimating() || isAnimatingAdded()" [class.exporting]="isExporting()">
 
       <div class="card-header" [class.has-dropdown]="id() && !actionText()">
-        @if (category()) {
-          <span class="badge category">{{ category() }}</span>
-        }
+        <div class="header-left">
+          @if (category()) {
+            <span class="badge category">{{ category() }}</span>
+          }
+          @if (isAnswered()) {
+            <span class="badge status-answered">
+              <svg lucideIcon="check" class="checkmark checkmark-icon"></svg> Получен ответ
+            </span>
+          }
+        </div>
 
         @if (id() && !actionText() && !isExporting()) {
           <div class="dropdown-container">
-            <button class="icon-btn" (click)="toggleDropdown($event)">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <circle cx="12" cy="5" r="2"></circle>
-                <circle cx="12" cy="12" r="2"></circle>
-                <circle cx="12" cy="19" r="2"></circle>
-              </svg>
+            <button class="icon-btn" (click)="toggleDropdown($event)" aria-label="Меню действий">
+              <svg lucideIcon="more-vertical"></svg>
             </button>
             @if (showDropdown()) {
               <div class="dropdown-menu">
                 <button class="dropdown-item edit" (click)="onEdit()">
-                  <span class="icon">✎</span> Редактировать
+                  <svg lucideIcon="edit-2" class="icon"></svg> Редактировать
                 </button>
                 @if (isAnswered()) {
                   <button class="dropdown-item" (click)="onUnmark()">
-                    <span class="icon">↺</span> Снять отметку
+                    <svg lucideIcon="rotate-ccw" class="icon"></svg> Снять отметку
                   </button>
                 }
                 <button class="dropdown-item delete" (click)="onDelete()">
-                  <span class="icon">🗑</span> Удалить
+                  <svg lucideIcon="trash-2" class="icon"></svg> Удалить
                 </button>
               </div>
             }
@@ -61,26 +64,20 @@
               <div class="action-wrapper">
                 @if (!isAdded() && !isAnimatingAdded()) {
                   <button class="action-btn" (click)="onBtnClick()">
-                    + {{ actionText() }}
+                    <svg lucideIcon="plus" class="btn-icon"></svg> {{ actionText() }}
                   </button>
                 }
                 @if (actionText() && (isAdded() || isAnimatingAdded())) {
                   <div class="added-state">
                     <span class="badge status-answered">
-                      <span class="checkmark">✓</span> Добавлено в мои ду‘а
+                      <svg lucideIcon="check" class="checkmark checkmark-icon"></svg> Добавлено в мои ду‘а
                     </span>
                   </div>
                 }
               </div>
               <button class="icon-btn share-btn" aria-label="Поделиться" (click)="onShare()"
                 title="Поделиться в Telegram/Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                  <circle cx="18" cy="5" r="3"></circle>
-                  <circle cx="6" cy="12" r="3"></circle>
-                  <circle cx="18" cy="19" r="3"></circle>
-                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                </svg>
+                <svg lucideIcon="share-2"></svg>
               </button>
             </div>
           }
@@ -89,18 +86,19 @@
             <div class="right-footer">
               @if (!isAnswered() && !isAnimating()) {
                 <button class="mark-answered-btn" (click)="onMarkAnswered()">
-                  ✓ Ответить
+                  <svg lucideIcon="check" class="btn-icon"></svg> Ответить
                 </button>
               }
               @if (isAnswered() || isAnimating()) {
                 <span class="badge status-answered">
-                  <span class="checkmark">✓</span> Отвечено
+                  <svg lucideIcon="check" class="checkmark checkmark-icon"></svg> Отвечено
                 </span>
               }
             </div>
           }
         </div>
       }
+      <ng-content select="[card-extension]"></ng-content>
     </div>
 
     <!-- BACK SIDE -->

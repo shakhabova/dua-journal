@@ -34,54 +34,41 @@
   } @else if (answeredDuas().length > 0) {
     <div class="answered-list">
       @for (dua of answeredDuas(); track dua) {
-        <article class="answer-card">
-          <div class="answer-card-header">
-            @if (dua.category) {
-              <span class="category-pill">{{ dua.category }}</span>
-            }
-            <div class="header-actions">
-              <span class="answered-pill">Получен ответ</span>
-              <details class="answer-menu">
-                <summary aria-label="Действия">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <circle cx="12" cy="5" r="1.8"></circle>
-                    <circle cx="12" cy="12" r="1.8"></circle>
-                    <circle cx="12" cy="19" r="1.8"></circle>
-                  </svg>
-                </summary>
-                <div class="answer-menu-list">
-                  <button type="button" (click)="openEditModal(dua.id)">Редактировать</button>
-                  <button type="button" (click)="unmarkAnswered(dua.id)">Вернуть в активные</button>
-                  <button type="button" class="danger" (click)="deleteDua(dua.id)">Удалить</button>
-                </div>
-              </details>
+        <app-dua-card
+          [id]="dua.id"
+          [text]="dua.text"
+          [textAr]="dua.textAr"
+          [transcription]="dua.transcription"
+          [reference]="dua.reference"
+          [category]="dua.category"
+          [date]="dua.dateAdded"
+          [isAnswered]="true"
+          [hideAnswerAction]="true"
+          (editClicked)="openEditModal($event)"
+          (deleteClicked)="deleteDua($event)"
+          (unmarkAnswered)="unmarkAnswered($event)">
+          
+          <div card-extension>
+            <div class="answer-dates">
+              <span>Создано: {{ dua.dateAdded | date:'d MMM yyyy' }}</span>
+              <span>Ответ получен: {{ (dua.answeredAt || dua.dateAdded) | date:'d MMM yyyy' }}</span>
+            </div>
+            <div class="gratitude-block">
+              <label class="gratitude-note">
+                <span>Моя благодарность</span>
+                <textarea
+                  [ngModel]="dua.answerNote || ''"
+                  (ngModelChange)="updateAnswerNote(dua.id, $event)"
+                  maxlength="180"
+                  rows="3"
+                  placeholder="Альхамдулиллях, я увидела в этом милость и поддержку.">
+                </textarea>
+              </label>
             </div>
           </div>
-          <p class="dua-text">{{ dua.text }}</p>
-          <div class="answer-dates">
-            <span>Создано: {{ dua.dateAdded | date:'d MMM yyyy' }}</span>
-            <span>Ответ получен: {{ (dua.answeredAt || dua.dateAdded) | date:'d MMM yyyy' }}</span>
-          </div>
-          <div class="gratitude-block">
-            <label class="gratitude-note">
-              <span>Моя благодарность</span>
-              <textarea
-                [ngModel]="dua.answerNote || ''"
-                (ngModelChange)="updateAnswerNote(dua.id, $event)"
-                maxlength="180"
-                rows="3"
-                placeholder="Альхамдулиллях, я увидела в этом милость и поддержку.">
-              </textarea>
-            </label>
-            <!-- <div class="gratitude-heart" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"></path>
-            </svg>
-          </div> -->
-        </div>
-      </article>
-    }
-  </div>
+        </app-dua-card>
+      }
+    </div>
 } @else {
   <div class="empty-state">
     <div class="icon">✨</div>
