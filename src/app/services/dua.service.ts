@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import type { Dua, UserDua } from '../models/dua.model';
 import { SupabaseService } from './supabase.service';
 
@@ -7,6 +7,7 @@ import { SupabaseService } from './supabase.service';
 })
 export class DuaService {
     private supabaseService = inject(SupabaseService);
+    public userDuasTrigger = signal<number>(0);
 
     /**
      * Shared fetching logic to be used by components with the Resource API.
@@ -93,6 +94,8 @@ export class DuaService {
 
         if (error) {
             console.error('Error saving dua to database:', error);
+        } else {
+            this.userDuasTrigger.update((n) => n + 1);
         }
     }
 
@@ -112,6 +115,8 @@ export class DuaService {
 
         if (error) {
             console.error('Error marking dua as answered:', error);
+        } else {
+            this.userDuasTrigger.update((n) => n + 1);
         }
     }
 
@@ -129,6 +134,8 @@ export class DuaService {
 
         if (error) {
             console.error('Error unmarking dua as answered:', error);
+        } else {
+            this.userDuasTrigger.update((n) => n + 1);
         }
     }
 
@@ -143,6 +150,8 @@ export class DuaService {
 
         if (error) {
             console.error('Error updating dua:', error);
+        } else {
+            this.userDuasTrigger.update((n) => n + 1);
         }
     }
 
@@ -157,6 +166,8 @@ export class DuaService {
 
         if (error) {
             console.error('Error updating answer note:', error);
+        } else {
+            this.userDuasTrigger.update((n) => n + 1);
         }
     }
 
@@ -171,6 +182,8 @@ export class DuaService {
 
         if (error) {
             console.error('Error deleting dua:', error);
+        } else {
+            this.userDuasTrigger.update((n) => n + 1);
         }
     }
 }

@@ -1,0 +1,107 @@
+<div class="container page-container library-page">
+    <div class="library-header">
+        <h2 class="section-title">Сборник ду’а</h2>
+        <hr class="divider">
+        <p class="library-subtitle">Коллекция прекрасных ду’а из Благородного Корана и достоверной Сунны пророка (мир ему и благословение Аллаха).</p>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-container">
+        <div class="search-box">
+            <svg lucideIcon="search" class="search-icon"></svg>
+            <input 
+                type="text" 
+                [ngModel]="searchQuery()" 
+                (ngModelChange)="searchQuery.set($event)" 
+                placeholder="Поиск ду’а по тексту или переводу..." 
+                class="search-input"
+            >
+            @if (searchQuery()) {
+                <button class="clear-search-btn" (click)="searchQuery.set('')" aria-label="Очистить поиск">
+                    <svg lucideIcon="x" class="clear-icon"></svg>
+                </button>
+            }
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filters-row">
+        <button 
+            class="filter-chip" 
+            [class.active]="selectedFilter() === 'Все'" 
+            (click)="selectedFilter.set('Все')"
+        >
+            Все
+        </button>
+        <button 
+            class="filter-chip" 
+            [class.active]="selectedFilter() === 'Quran'" 
+            (click)="selectedFilter.set('Quran')"
+        >
+            Из Корана
+        </button>
+        <button 
+            class="filter-chip" 
+            [class.active]="selectedFilter() === 'Sunnah'" 
+            (click)="selectedFilter.set('Sunnah')"
+        >
+            Из Сунны
+        </button>
+    </div>
+
+    <!-- Main Content Area -->
+    @if (libraryDuasResource.isLoading() || userDuasResource.isLoading()) {
+        <div class="cards-list">
+            @for (i of [1, 2, 3]; track i) {
+                <div class="dua-card skeleton-card">
+                    <div class="card-content">
+                        <div class="skeleton-line line-1"></div>
+                        <div class="skeleton-line line-2"></div>
+                        <div class="skeleton-line line-3"></div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="skeleton-pill button"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    } @else if (filteredDuas().length === 0) {
+        <div class="empty-state">
+            <div class="empty-icon">🔍</div>
+            <h4 class="empty-title">Ничего не найдено</h4>
+            <p class="empty-text">По запросу «{{ searchQuery() }}» ничего не удалось найти. Попробуйте ввести другие ключевые слова.</p>
+            <button class="reset-search-btn" (click)="searchQuery.set('')">Сбросить поиск</button>
+        </div>
+    } @else {
+        <div class="results-count-container">
+            <span class="results-count">Найдено: <strong>{{ filteredDuas().length }}</strong></span>
+        </div>
+
+        <div class="cards-list">
+            @for (dua of filteredDuas(); track dua.id) {
+                <app-dua-card 
+                    [text]="dua.textRu" 
+                    [reference]="dua.reference" 
+                    [isAdded]="addedDuaIds().has(dua.id)"
+                    actionText="Сохранить в мои ду‘а" 
+                    (actionClick)="addToMyDuas(dua)" 
+                    [textAr]="dua.textAr" 
+                    [transcription]="dua.transcription"
+                    [source]="dua.source"
+                >
+                </app-dua-card>
+            }
+        </div>
+    }
+
+    <!-- Modal integration -->
+    @if (isCategoryModalOpen() && selectedLibraryDua()) {
+        <app-add-dua-modal 
+            [initialText]="selectedLibraryDua()!.textRu" 
+            [initialCategory]="'Ризк'"
+            (close)="closeCategoryModal()" 
+            (save)="saveLibraryDua($event)"
+        >
+        </app-add-dua-modal>
+    }
+</div>

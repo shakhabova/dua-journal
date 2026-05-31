@@ -10,6 +10,7 @@ import {
     LucideCircleCheckBig,
     LucideEllipsisVertical,
     LucideHouse,
+    LucideLibrary,
     LucideLogOut,
     LucideMessageSquare,
     LucideMoon,
@@ -17,11 +18,13 @@ import {
     LucidePen,
     LucidePlus,
     LucideRotateCcw,
+    LucideSearch,
     LucideSend,
     LucideShare2,
     LucideSlidersHorizontal,
     LucideSun,
     LucideTrash2,
+    LucideX,
     provideLucideIcons,
 } from '@lucide/angular';
 
@@ -50,6 +53,9 @@ export const appConfig: ApplicationConfig = {
             LucideMoonStar,
             LucideMessageSquare,
             LucideSend,
+            LucideLibrary,
+            LucideSearch,
+            LucideX,
         ),
     ],
 };

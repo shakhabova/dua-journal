@@ -15,6 +15,7 @@ import { debounceTime } from 'rxjs/operators';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
 import { DuaService } from '../../services/dua.service';
+import type { UserDua } from '../../models/dua.model';
 
 @Component({
     selector: 'app-answers',
@@ -34,7 +35,8 @@ export class AnswersComponent {
     private noteUpdate$ = new Subject<{ id: string; note: string }>();
 
     userDuasResource = resource({
-        loader: () => this.duaService.getUserDuas(),
+        params: () => this.duaService.userDuasTrigger(),
+        loader: ({ params }) => this.duaService.getUserDuas(),
     });
 
     answeredDuas = computed(() =>
