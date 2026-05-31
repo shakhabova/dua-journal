@@ -52,10 +52,38 @@ export class ThemeService {
     private applyTheme() {
         if (!isPlatformBrowser(this.platformId)) return;
 
-        if (this.isDarkTheme()) {
+        const isDark = this.isDarkTheme();
+        const themeColor = isDark ? '#0c1218' : '#faf7f2';
+
+        if (isDark) {
             document.documentElement.setAttribute('data-theme', 'dark');
         } else {
             document.documentElement.removeAttribute('data-theme');
+        }
+
+        // Update the meta tag for browser theme-color
+        const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+        if (metaThemeColor) {
+            metaThemeColor.setAttribute('content', themeColor);
+        }
+
+        // Update Telegram WebApp colors to match custom design
+        const tg = (window as any).Telegram?.WebApp;
+        if (tg) {
+            if (tg.setHeaderColor) {
+                try {
+                    tg.setHeaderColor(themeColor);
+                } catch (e) {
+                    console.error('Telegram setHeaderColor failed', e);
+                }
+            }
+            if (tg.setBackgroundColor) {
+                try {
+                    tg.setBackgroundColor(themeColor);
+                } catch (e) {
+                    console.error('Telegram setBackgroundColor failed', e);
+                }
+            }
         }
     }
 }
