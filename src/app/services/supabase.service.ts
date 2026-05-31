@@ -151,7 +151,7 @@ export class SupabaseService {
 
     async logout() {
         localStorage.removeItem(this.tokenKey);
-        this.initializeClient();
+        location.reload();
     }
 
     private decodeJwt(token: string): any {

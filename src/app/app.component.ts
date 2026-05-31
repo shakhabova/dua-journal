@@ -21,7 +21,7 @@ import { ThemeService } from './services/theme.service';
 export class AppComponent implements OnInit {
     private themeService = inject(ThemeService);
     private supabaseService = inject(SupabaseService);
-    private telegramService = inject(TelegramService);
+    protected telegramService = inject(TelegramService);
 
     isDark = this.themeService.isDarkTheme;
     isAuthenticated = this.supabaseService.isAuthenticated;

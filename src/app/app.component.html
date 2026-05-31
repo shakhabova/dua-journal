@@ -1,29 +1,47 @@
 <div class="app-container">
-  <!-- Top Header based on mockup -->
-  @if (isAuthenticated()) {
-  <header class="app-header">
-    <div class="header-content container">
-      <div class="header-inner">
-        <div class="logo-group">
-          <h1 class="logo">Личное пространство ду‘а</h1>
-          <button class="theme-toggle-btn" (click)="toggleTheme()"
-            [attr.aria-label]="isDark() ? 'Включить светлую тему' : 'Включить темную тему'">
-            <svg [lucideIcon]="isDark() ? 'sun' : 'moon-star'" class="icon"></svg>
-          </button>
-        </div>
-        <button class="logout-btn" (click)="logout()" aria-label="Выйти из системы">
-          <svg lucideIcon="log-out" class="logout-icon"></svg>
-        </button>
-      </div>
-    </div>
-  </header>
-  }
+    <!-- Top Header based on mockup -->
+    @if (isAuthenticated()) {
+        <header class="app-header">
+            <div class="header-content container">
+                <div class="header-inner">
+                    <div class="logo-group">
+                        <h1 class="logo">Личное пространство ду‘а</h1>
+                        <button
+                            class="theme-toggle-btn"
+                            (click)="toggleTheme()"
+                            [attr.aria-label]="
+                                isDark()
+                                    ? 'Включить светлую тему'
+                                    : 'Включить темную тему'
+                            "
+                        >
+                            <svg
+                                [lucideIcon]="isDark() ? 'sun' : 'moon-star'"
+                                class="icon"
+                            ></svg>
+                        </button>
+                    </div>
 
-  <main class="main-content" [class.no-padding]="!isAuthenticated()">
-    <router-outlet></router-outlet>
-  </main>
+                    @if (!telegramService.isTelegramMiniApp()) {
+                        <button
+                            class="logout-btn"
+                            (click)="logout()"
+                            aria-label="Выйти из системы"
+                        >
+                            <svg lucideIcon="log-out" class="logout-icon"></svg>
+                        </button>
+                    }
+                </div>
+            </div>
+        </header>
+    }
 
-  @if (isAuthenticated()) {
-  <app-navbar></app-navbar>
-  }
+    <main class="main-content" [class.no-padding]="!isAuthenticated()">
+        <router-outlet></router-outlet>
+    </main>
+
+    @if (isAuthenticated()) {
+        <app-navbar></app-navbar>
+    }
 </div>
+
