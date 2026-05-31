@@ -112,12 +112,6 @@ export class SupabaseService {
         }
     }
 
-    public isTelegramMiniApp(): boolean {
-        if (typeof window === 'undefined') return false;
-        const tg = (window as any).Telegram?.WebApp;
-        return !!(tg && tg.initData && tg.initData.length > 0);
-    }
-
     async loginWithTelegramMiniApp(): Promise<boolean> {
         try {
             const tg = (window as any).Telegram?.WebApp;
