@@ -4,29 +4,23 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    background-color: #0b0f19;
-    background-image:
-        radial-gradient(at 0% 0%, hsla(242, 47%, 14%, 1) 0px, transparent 50%),
-        radial-gradient(
-            at 100% 100%,
-            hsla(262, 52%, 11%, 1) 0px,
-            transparent 50%
-        );
+    background-color: var(--bg-milky);
     overflow: hidden;
-    font-family: "Outfit", "Inter", -apple-system, sans-serif;
+    font-family: var(--font-body);
     padding: 1.5rem;
     box-sizing: border-box;
+    transition: background-color 0.4s ease;
 }
 
 /* Stunning background glow effects */
 .login-glow {
     position: absolute;
-    width: 500px;
-    height: 500px;
+    width: 600px;
+    height: 600px;
     background: radial-gradient(
         circle,
-        rgba(99, 102, 241, 0.15) 0%,
-        rgba(99, 102, 241, 0) 70%
+        rgba(212, 175, 55, 0.08) 0%,
+        rgba(212, 175, 55, 0) 70%
     );
     top: 50%;
     left: 50%;
@@ -34,25 +28,96 @@
     z-index: 1;
     pointer-events: none;
     filter: blur(40px);
+    animation: float-glow 8s ease-in-out infinite;
+}
+
+[data-theme="dark"] .login-glow {
+    background: radial-gradient(
+        circle,
+        rgba(223, 190, 84, 0.12) 0%,
+        rgba(223, 190, 84, 0) 70%
+    );
+}
+
+@keyframes float-glow {
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.15);
+        opacity: 1;
+    }
+}
+
+.login-theme-toggle {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 10;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    color: var(--accent-sand);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.login-theme-toggle:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: var(--shadow-hover);
+    background: var(--bg-hover);
+}
+
+.login-theme-toggle .icon {
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .login-card {
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 480px;
-    background: rgba(17, 24, 39, 0.7);
+    max-width: 460px;
+    background: var(--bg-glass);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 24px;
-    padding: 3rem 2.5rem;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-light);
+    border-radius: 28px;
+    padding: 3.5rem 2.5rem 3rem 2.5rem;
+    box-shadow: var(--shadow-soft);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.login-card:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(212, 175, 55, 0.2);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .logo-area {
@@ -60,19 +125,36 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .app-icon {
-    width: 64px;
-    height: 64px;
-    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-    border-radius: 18px;
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #f0d068 0%, var(--accent-sand) 100%);
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
+    margin-bottom: 1.75rem;
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
     color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.app-icon:hover {
+    transform: translateY(-4px) rotate(5deg);
+    box-shadow: 0 12px 24px rgba(212, 175, 55, 0.25);
+}
+
+[data-theme="dark"] .app-icon {
+    background: linear-gradient(135deg, var(--accent-sand) 0%, #a2811d 100%);
+    box-shadow: 0 8px 25px rgba(223, 190, 84, 0.15);
+    color: #0c1218;
+}
+
+[data-theme="dark"] .app-icon:hover {
+    box-shadow: 0 12px 28px rgba(223, 190, 84, 0.25);
 }
 
 .icon-svg {
@@ -82,20 +164,19 @@
 }
 
 .app-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 2.4rem;
+    font-weight: 500;
+    color: var(--text-dark);
     margin: 0 0 0.75rem 0;
-    letter-spacing: -0.025em;
-    background: linear-gradient(to right, #ffffff, #d1d5db);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
 }
 
 .app-subtitle {
     font-size: 0.95rem;
     line-height: 1.6;
-    color: #9ca3af;
+    color: var(--text-light);
     margin: 0;
     max-width: 380px;
 }
@@ -107,7 +188,7 @@
     align-items: center;
     justify-content: center;
     min-height: 120px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .telegram-button-container {
@@ -126,20 +207,20 @@
     background: linear-gradient(135deg, #54a9eb 0%, #2ea6da 100%);
     color: #ffffff;
     border: none;
-    border-radius: 14px;
-    padding: 1rem 2rem;
+    border-radius: 16px;
+    padding: 1rem 2.25rem;
     font-size: 1.05rem;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 15px 0 rgba(84, 169, 235, 0.35);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px 0 rgba(84, 169, 235, 0.3);
+    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
     width: 100%;
-    max-width: 300px;
+    max-width: 320px;
 }
 
 .telegram-login-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px 0 rgba(84, 169, 235, 0.5);
+    box-shadow: 0 8px 25px 0 rgba(84, 169, 235, 0.45);
     filter: brightness(1.05);
 }
 
@@ -161,10 +242,11 @@
 }
 
 .auth-notice {
-    font-size: 0.8rem;
-    color: #6b7280;
+    font-size: 0.82rem;
+    color: var(--text-muted);
     margin: 0;
-    max-width: 300px;
+    max-width: 320px;
+    line-height: 1.4;
 }
 
 /* Spinner Loader */
@@ -172,16 +254,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 1.25rem;
 }
 
 .spinner {
-    width: 36px;
-    height: 36px;
-    border: 3px solid rgba(99, 102, 241, 0.1);
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-light);
     border-radius: 50%;
-    border-top-color: #6366f1;
-    animation: spin 1s ease-in-out infinite;
+    border-top-color: var(--accent-sand);
+    animation: spin 1s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
 }
 
 @keyframes spin {
@@ -191,8 +273,8 @@
 }
 
 .loading-text {
-    font-size: 0.9rem;
-    color: #818cf8;
+    font-size: 0.95rem;
+    color: var(--accent-sand);
     margin: 0;
     font-weight: 500;
 }
@@ -202,14 +284,14 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.2);
-    border-radius: 12px;
+    background: var(--bg-danger-hover);
+    border: 1px solid rgba(211, 47, 47, 0.15);
+    border-radius: 14px;
     padding: 0.875rem 1.25rem;
     margin-top: 1.25rem;
     text-align: left;
     max-width: 100%;
-    animation: slideIn 0.3s ease;
+    animation: slideIn 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 @keyframes slideIn {
@@ -226,32 +308,44 @@
 .error-icon {
     width: 20px;
     height: 20px;
-    color: #ef4444;
+    color: var(--text-danger);
     flex-shrink: 0;
     display: inline-flex;
 }
 
 .error-msg {
-    font-size: 0.85rem;
-    color: #fca5a5;
+    font-size: 0.88rem;
+    color: var(--text-danger);
     line-height: 1.4;
 }
 
 .footer-note {
-    font-size: 0.75rem;
-    color: #4b5563;
-    margin-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border-light);
     padding-top: 1.5rem;
     width: 100%;
 }
 
 @media (max-width: 480px) {
+    .login-container {
+        padding: 1rem;
+    }
+
     .login-card {
-        padding: 2rem 1.5rem;
+        padding: 2.5rem 1.5rem 2rem 1.5rem;
+        border-radius: 24px;
     }
 
     .app-title {
-        font-size: 1.75rem;
+        font-size: 2rem;
+    }
+
+    .login-theme-toggle {
+        top: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
     }
 }

@@ -3,6 +3,7 @@ import { Component, inject, type OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { LucideDynamicIcon } from '@lucide/angular';
 import { SupabaseService } from '../../services/supabase.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
     selector: 'app-login',
@@ -13,11 +14,13 @@ import { SupabaseService } from '../../services/supabase.service';
 })
 export class LoginComponent implements OnInit {
     private supabaseService = inject(SupabaseService);
+    private themeService = inject(ThemeService);
     private router = inject(Router);
 
     public errorMessage = signal<string | null>(null);
     public isLoading = signal<boolean>(false);
-    public loadingText = signal<string>('Redirecting to Telegram...');
+    public loadingText = signal<string>('Перенаправление в Telegram...');
+    protected isDark = this.themeService.isDarkTheme;
 
     ngOnInit() {
         // 1. Check if the URL contains an OIDC code callback parameter from Telegram
@@ -34,16 +37,20 @@ export class LoginComponent implements OnInit {
 
     onLoginWithTelegram() {
         this.isLoading.set(true);
-        this.loadingText.set('Redirecting to Telegram...');
+        this.loadingText.set('Перенаправление в Telegram...');
         this.errorMessage.set(null);
 
         // Redirect to Telegram OIDC Authentication page
         window.location.href = this.supabaseService.getOidcLoginUrl();
     }
 
+    toggleTheme() {
+        this.themeService.toggleTheme();
+    }
+
     private async handleOidcCallback(code: string) {
         this.isLoading.set(true);
-        this.loadingText.set('Establishing your secure session...');
+        this.loadingText.set('Установка защищенного сеанса...');
         this.errorMessage.set(null);
 
         const res = await this.supabaseService.loginWithOidcCode(code);
@@ -59,7 +66,8 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/']);
         } else {
             this.errorMessage.set(
-                res.error || 'OIDC verification failed. Please try again.',
+                res.error ||
+                    'Ошибка авторизации через Telegram. Пожалуйста, попробуйте еще раз.',
             );
         }
     }

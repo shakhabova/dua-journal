@@ -1,4 +1,12 @@
 <div class="login-container">
+    <button class="theme-toggle-btn login-theme-toggle" (click)="toggleTheme()" [attr.aria-label]="
+            isDark()
+                ? 'Включить светлую тему'
+                : 'Включить темную тему'
+        ">
+        <svg [lucideIcon]="isDark() ? 'sun' : 'moon-star'" class="icon"></svg>
+    </button>
+
     <div class="login-glow"></div>
     <div class="login-card">
         <div class="logo-area">
@@ -7,52 +15,40 @@
             </div>
             <h1 class="app-title">Dua Journal</h1>
             <p class="app-subtitle">
-                Record your prayers, preserve your moments of reflection, and
-                track your answered supplications.
+                Личное пространство для ду’а и напоминаний о милости Аллаха.
             </p>
         </div>
 
         <div class="auth-section">
             @if (isLoading()) {
-                <div class="loader-wrapper">
-                    <div class="spinner"></div>
-                    <p class="loading-text">{{ loadingText() }}</p>
-                </div>
+            <div class="loader-wrapper">
+                <div class="spinner"></div>
+                <p class="loading-text">{{ loadingText() }}</p>
+            </div>
             } @else {
-                <div class="telegram-button-container">
-                    <button
-                        (click)="onLoginWithTelegram()"
-                        class="telegram-login-btn"
-                    >
-                        <span class="tg-icon">
-                            <svg
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                class="tg-svg"
-                            >
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.24-5.54 3.65-.52.36-.99.53-1.41.52-.46-.01-1.36-.26-2.02-.48-.82-.27-1.47-.41-1.42-.87.03-.24.36-.49.99-.75 3.88-1.69 6.46-2.8 7.74-3.32 3.68-1.5 4.44-1.76 4.94-1.77.11 0 .36.03.52.16.13.1.17.24.19.34.02.09.02.26 0 .35z"
-                                />
-                            </svg>
-                        </span>
-                        Войти через Telegram
-                    </button>
-                    <p class="auth-notice">
-                        Sign in safely using secure standard OpenID Connect.
-                    </p>
-                </div>
+            <div class="telegram-button-container">
+                <button (click)="onLoginWithTelegram()" class="telegram-login-btn">
+                    <span class="tg-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="tg-svg">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.24-5.54 3.65-.52.36-.99.53-1.41.52-.46-.01-1.36-.26-2.02-.48-.82-.27-1.47-.41-1.42-.87.03-.24.36-.49.99-.75 3.88-1.69 6.46-2.8 7.74-3.32 3.68-1.5 4.44-1.76 4.94-1.77.11 0 .36.03.52.16.13.1.17.24.19.34.02.09.02.26 0 .35z" />
+                        </svg>
+                    </span>
+                    Войти через Telegram
+                </button>
+                <p class="auth-notice">
+                    Безопасный вход с помощью защищенного стандарта OpenID Connect.
+                </p>
+            </div>
             }
 
             @if (errorMessage()) {
-                <div class="error-banner">
-                    <svg lucideIcon="circle-alert" class="error-icon"></svg>
-                    <span class="error-msg">{{ errorMessage() }}</span>
-                </div>
+            <div class="error-banner">
+                <svg lucideIcon="circle-alert" class="error-icon"></svg>
+                <span class="error-msg">{{ errorMessage() }}</span>
+            </div>
             }
         </div>
 
-        <div class="footer-note">
-            Your data is privately secured in your personal cloud database.
-        </div>
     </div>
 </div>

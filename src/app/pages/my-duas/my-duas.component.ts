@@ -29,7 +29,17 @@ export class MyDuasComponent {
 
     myDuas = computed(() => this.userDuasResource.value() ?? []);
 
-    categories = ['Все', 'Ризк', 'Семья', 'Здоровье', 'Друзья', 'Работа'];
+    categories = [
+        'Все',
+        'Ризк',
+        'Семья',
+        'Здоровье',
+        'Друзья',
+        'Работа',
+        'Покаяние',
+        'Иман',
+        'Другое',
+    ];
     selectedFilter = signal<string>('Все');
 
     filteredDuas = computed(() => {

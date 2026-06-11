@@ -49,8 +49,9 @@
 }
 
 .add-btn:hover {
-    background: #fdfdfd;
+    background: var(--bg-hover);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border-color: rgba(212, 175, 55, 0.4);
 }
 
 .divider.line-only {

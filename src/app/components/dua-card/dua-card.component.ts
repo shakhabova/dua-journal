@@ -165,6 +165,27 @@ export class DuaCardComponent {
         }
     }
 
+    isSunnahDua(): boolean {
+        if (this.source() === 'Sunnah') {
+            return true;
+        }
+        if (this.reference()) {
+            const ref = this.reference()!.toLowerCase();
+            return (
+                ref.includes('бухари') ||
+                ref.includes('муслим') ||
+                ref.includes('тирмизи') ||
+                ref.includes('дауд') ||
+                ref.includes('ахмад') ||
+                ref.includes('хаким') ||
+                ref.includes('табарани') ||
+                ref.includes('ибн маджа') ||
+                ref.includes('маджа')
+            );
+        }
+        return false;
+    }
+
     toggleFlip(event?: Event) {
         if (!this.textAr()) return;
 

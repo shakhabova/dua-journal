@@ -28,7 +28,16 @@ export class AddDuaModalComponent implements OnInit {
     newText = signal('');
     selectedCategory = signal('Ризк');
 
-    categories = ['Ризк', 'Семья', 'Здоровье', 'Друзья', 'Работа'];
+    categories = [
+        'Ризк',
+        'Семья',
+        'Здоровье',
+        'Друзья',
+        'Работа',
+        'Покаяние',
+        'Иман',
+        'Другое',
+    ];
 
     ngOnInit() {
         this.newText.set(this.initialText());
