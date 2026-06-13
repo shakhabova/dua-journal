@@ -118,44 +118,6 @@
     border-radius: 16px;
 }
 
-.skeleton-pill,
-.skeleton-line {
-    position: relative;
-    overflow: hidden;
-    background: var(--bg-badge);
-    border-radius: 6px;
-}
-
-.skeleton-pill.button {
-    width: 140px;
-    height: 36px;
-    border-radius: 20px;
-    display: inline-block;
-}
-
-.skeleton-line {
-    height: 14px;
-    width: 100%;
-}
-
-.skeleton-line.line-1 {
-    width: 90%;
-}
-
-.skeleton-line.line-2 {
-    width: 95%;
-}
-
-.skeleton-line.line-3 {
-    width: 60%;
-}
-
-.skeleton-line.date {
-    height: 12px;
-    width: 100px;
-    margin-top: 10px;
-}
-
 .centered {
     margin-left: auto !important;
     margin-right: auto !important;
@@ -166,45 +128,6 @@
     border-top: none;
     padding-top: 0;
     justify-content: center;
-}
-
-/* Shimmer animation overlay */
-.skeleton-pill::after,
-.skeleton-line::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    transform: translateX(-100%);
-    background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.4) 35%,
-        rgba(255, 255, 255, 0.7) 50%,
-        rgba(255, 255, 255, 0.4) 65%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    animation: shimmer 1.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-[data-theme="dark"] .skeleton-pill::after,
-[data-theme="dark"] .skeleton-line::after {
-    background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.05) 35%,
-        rgba(255, 255, 255, 0.15) 50%,
-        rgba(255, 255, 255, 0.05) 65%,
-        rgba(255, 255, 255, 0) 100%
-    );
-}
-
-@keyframes shimmer {
-    100% {
-        transform: translateX(100%);
-    }
 }
 
 /* Feedback Section styling */

@@ -5,13 +5,13 @@
     <hr class="divider">
     <div class="dua-card skeleton-card main-card">
       <div class="card-content">
-        <div class="skeleton-line line-1 centered"></div>
-        <div class="skeleton-line line-2 centered"></div>
-        <div class="skeleton-line line-3 centered"></div>
-        <div class="skeleton-line date centered"></div>
+        <hlm-skeleton class="h-3.5 w-[90%] mx-auto" />
+        <hlm-skeleton class="h-3.5 w-[95%] mx-auto mt-2" />
+        <hlm-skeleton class="h-3.5 w-[60%] mx-auto mt-2" />
+        <hlm-skeleton class="h-3 w-[100px] mx-auto mt-[10px]" />
       </div>
       <div class="card-footer centered">
-        <div class="skeleton-pill button"></div>
+        <hlm-skeleton class="h-9 w-[140px] rounded-full" />
       </div>
     </div>
   </section>
@@ -24,11 +24,11 @@
         @for (i of [1, 2]; track i) {
         <div class="dua-card skeleton-card">
           <div class="card-content">
-            <div class="skeleton-line line-1"></div>
-            <div class="skeleton-line line-2"></div>
+            <hlm-skeleton class="h-3.5 w-[90%]" />
+            <hlm-skeleton class="h-3.5 w-[60%] mt-2" />
           </div>
           <div class="card-footer">
-            <div class="skeleton-pill button"></div>
+            <hlm-skeleton class="h-9 w-[140px] rounded-full" />
           </div>
         </div>
         }
@@ -42,11 +42,11 @@
         @for (i of [1, 2]; track i) {
         <div class="dua-card skeleton-card">
           <div class="card-content">
-            <div class="skeleton-line line-1"></div>
-            <div class="skeleton-line line-2"></div>
+            <hlm-skeleton class="h-3.5 w-[90%]" />
+            <hlm-skeleton class="h-3.5 w-[60%] mt-2" />
           </div>
           <div class="card-footer">
-            <div class="skeleton-pill button"></div>
+            <hlm-skeleton class="h-9 w-[140px] rounded-full" />
           </div>
         </div>
         }

@@ -37,17 +37,17 @@
       @for (i of [1, 2, 3]; track i) {
         <div class="dua-card skeleton-card">
           <div class="card-header">
-            <div class="skeleton-pill category"></div>
-            <div class="skeleton-circle menu-btn"></div>
+            <hlm-skeleton class="h-[22px] w-20 rounded-full" />
+            <hlm-skeleton class="size-6 rounded-full" />
           </div>
           <div class="card-content">
-            <div class="skeleton-line line-1"></div>
-            <div class="skeleton-line line-2"></div>
-            <div class="skeleton-line line-3"></div>
+            <hlm-skeleton class="h-3.5 w-[90%]" />
+            <hlm-skeleton class="h-3.5 w-[95%] mt-2" />
+            <hlm-skeleton class="h-3.5 w-[60%] mt-2" />
           </div>
           <div class="card-footer">
-            <div class="skeleton-line date"></div>
-            <div class="skeleton-pill button"></div>
+            <hlm-skeleton class="h-3 w-[100px]" />
+            <hlm-skeleton class="h-7 w-[90px] rounded-full" />
           </div>
         </div>
       }

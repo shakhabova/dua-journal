@@ -10,6 +10,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LucideDynamicIcon } from '@lucide/angular';
+import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
 import type { Dua, UserDua } from '../../models/dua.model';
@@ -24,6 +25,7 @@ import { DuaService } from '../../services/dua.service';
         DuaCardComponent,
         AddDuaModalComponent,
         LucideDynamicIcon,
+        HlmSkeletonImports,
     ],
     templateUrl: './library.component.html',
     styleUrl: './library.component.css',

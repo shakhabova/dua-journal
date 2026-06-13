@@ -10,6 +10,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
@@ -25,6 +26,7 @@ import { DuaService } from '../../services/dua.service';
         RouterModule,
         AddDuaModalComponent,
         DuaCardComponent,
+        HlmSkeletonImports,
     ],
     templateUrl: './answers.component.html',
     styleUrl: './answers.component.css',

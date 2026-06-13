@@ -7,6 +7,7 @@ import {
     signal,
 } from '@angular/core';
 import { LucideDynamicIcon } from '@lucide/angular';
+import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
 import type { Dua } from '../../models/dua.model';
@@ -14,7 +15,12 @@ import { DuaService } from '../../services/dua.service';
 
 @Component({
     selector: 'app-home',
-    imports: [DuaCardComponent, AddDuaModalComponent, LucideDynamicIcon],
+    imports: [
+        DuaCardComponent,
+        AddDuaModalComponent,
+        LucideDynamicIcon,
+        HlmSkeletonImports,
+    ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -13,23 +13,23 @@
             @for (i of [1, 2]; track i) {
                 <div class="answer-card skeleton-card">
                     <div class="answer-card-header">
-                        <div class="skeleton-pill category"></div>
+                        <hlm-skeleton class="h-[22px] w-20 rounded-full" />
                         <div class="header-actions">
-                            <div class="skeleton-pill status"></div>
+                            <hlm-skeleton class="h-[22px] w-24 rounded-full" />
                         </div>
                     </div>
                     <div class="skeleton-body">
-                        <div class="skeleton-line line-1"></div>
-                        <div class="skeleton-line line-2"></div>
-                        <div class="skeleton-line line-3"></div>
+                        <hlm-skeleton class="h-3.5 w-[90%]" />
+                        <hlm-skeleton class="h-3.5 w-[95%]" />
+                        <hlm-skeleton class="h-3.5 w-[60%]" />
                     </div>
                     <div class="skeleton-dates">
-                        <div class="skeleton-line date"></div>
-                        <div class="skeleton-line date"></div>
+                        <hlm-skeleton class="h-3 w-[150px]" />
+                        <hlm-skeleton class="h-3 w-[150px]" />
                     </div>
                     <div class="gratitude-block skeleton-gratitude">
-                        <div class="skeleton-line label"></div>
-                        <div class="skeleton-textarea"></div>
+                        <hlm-skeleton class="h-3 w-[110px]" />
+                        <hlm-skeleton class="h-[60px] w-full rounded-lg" />
                     </div>
                 </div>
             }

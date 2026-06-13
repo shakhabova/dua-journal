@@ -38,6 +38,9 @@
             ],
             "@spartan-ng/helm/switch": [
                 "./src/app/components/ui/switch/src/index.ts"
+            ],
+            "@spartan-ng/helm/skeleton": [
+                "./src/app/components/ui/skeleton/src/index.ts"
             ]
         }
     },
