@@ -1,5 +1,38 @@
 @import "tailwindcss";
 
+@theme {
+    /* Custom theme colors using existing CSS variables */
+    --color-bg-milky: var(--bg-milky);
+    --color-bg-card: var(--bg-card);
+    --color-accent-sand: var(--accent-sand);
+    --color-accent-blue: var(--accent-blue);
+    --color-text-dark: var(--text-dark);
+    --color-text-light: var(--text-light);
+    --color-text-muted: var(--text-muted);
+    
+    --color-bg-badge: var(--bg-badge);
+    --color-bg-hover: var(--bg-hover);
+    --color-bg-glass: var(--bg-glass);
+    --color-bg-danger-hover: var(--bg-danger-hover);
+    --color-text-danger: var(--text-danger);
+    --color-bg-category: var(--bg-category);
+    --color-text-category: var(--text-category);
+
+    /* Fonts */
+    --font-heading: var(--font-heading);
+    --font-body: var(--font-body);
+
+    /* Shadows */
+    --shadow-soft: var(--shadow-soft);
+    --shadow-hover: var(--shadow-hover);
+    
+    /* Borders */
+    --color-border-light: var(--border-light);
+}
+
+/* Custom dark mode variant matching both data-theme="dark" and class="dark" */
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
 :root {
     --bg-milky: #faf7f2;
     --bg-card: #ffffff;
