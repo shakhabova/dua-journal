@@ -1,10 +1,13 @@
-<div class="modal-overlay" (click)="onClose()">
-  <div class="modal-content" (click)="$event.stopPropagation()">
-    <button class="close-btn" (click)="onClose()">✕</button>
-    <h3 class="modal-title">{{ editMode() ? 'Редактировать ду‘а' : 'Новое ду‘а' }}</h3>
+<hlm-dialog [state]="dialogState()" (stateChanged)="onStateChange($event)">
+  <hlm-dialog-content *hlmDialogPortal class="sm:max-w-[450px] w-[90%] bg-bg-card border border-border-light rounded-[16px] p-[30px] shadow-hover text-text-dark relative">
+    <hlm-dialog-header>
+      <h3 hlmDialogTitle class="modal-title mb-[25px] text-center font-serif text-[1.6rem] font-medium text-text-dark">
+        {{ editMode() ? 'Редактировать ду‘а' : 'Новое ду‘а' }}
+      </h3>
+    </hlm-dialog-header>
 
-    <div class="form-group">
-      <label>Текст вашей мольбы</label>
+    <div class="form-group mb-[22px]">
+      <label hlmLabel class="block text-[0.9rem] text-text-muted mb-[8px]">Текст вашей мольбы</label>
       <textarea
         [ngModel]="newText()"
         (ngModelChange)="newText.set($event)"
@@ -13,8 +16,8 @@
       </textarea>
     </div>
 
-    <div class="form-group">
-      <label>Категория</label>
+    <div class="form-group mb-[22px]">
+      <label hlmLabel class="block text-[0.9rem] text-text-muted mb-[8px]">Категория</label>
       <div class="category-tags">
         @for (cat of categories; track cat) {
           <button
@@ -27,8 +30,8 @@
       </div>
     </div>
 
-    <button class="action-btn" [disabled]="!newText().trim()" (click)="onSave()">
+    <button hlmBtn class="action-btn" [disabled]="!newText().trim()" (click)="onSave()">
       {{ editMode() ? 'Сохранить изменения' : 'Добавить в дневник' }}
     </button>
-  </div>
-</div>
+  </hlm-dialog-content>
+</hlm-dialog>

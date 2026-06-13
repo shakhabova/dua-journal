@@ -212,29 +212,33 @@
 }
 
 .action-btn {
-    display: inline-flex;
+    /* display: inline-flex; */
     align-items: center;
     justify-content: center;
     gap: 6px;
-    width: 100%;
-    padding: 10px;
+    /* width: 100%; */
+    /* padding: 10px; */
     border: 1px solid var(--border-light);
     border-radius: 8px;
     color: var(--text-dark);
     font-size: 0.95rem;
     transition: background 0.2s;
+    width: auto;
+    margin: 0 auto;
+    display: block;
+    padding: 10px 24px;
 }
 
 .action-btn:hover {
     background: var(--bg-badge);
 }
 
-.main-card .action-btn {
-    width: auto;
-    margin: 0 auto;
-    display: block;
-    padding: 10px 24px;
-}
+/* .main-card .action-btn { */
+/*     width: auto; */
+/*     margin: 0 auto; */
+/*     display: block; */
+/*     padding: 10px 24px; */
+/* } */
 
 .mark-answered-btn {
     display: inline-flex;

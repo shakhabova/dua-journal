@@ -9,10 +9,13 @@ import {
 } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
+import { HlmButton } from '@spartan-ng/helm/button';
+import { HlmDialogImports } from '@spartan-ng/helm/dialog';
+import { HlmLabel } from '@spartan-ng/helm/label';
 
 @Component({
     selector: 'app-add-dua-modal',
-    imports: [FormsModule],
+    imports: [FormsModule, HlmButton, HlmLabel, HlmDialogImports],
     templateUrl: './add-dua-modal.component.html',
     styleUrl: './add-dua-modal.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,6 +30,7 @@ export class AddDuaModalComponent implements OnInit {
 
     newText = signal('');
     selectedCategory = signal('Ризк');
+    dialogState = signal<'open' | 'closed'>('open');
 
     categories = [
         'Ризк',
@@ -59,5 +63,11 @@ export class AddDuaModalComponent implements OnInit {
 
     onClose() {
         this.close.emit();
+    }
+
+    onStateChange(state: 'open' | 'closed') {
+        if (state === 'closed') {
+            this.onClose();
+        }
     }
 }

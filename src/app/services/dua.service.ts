@@ -167,7 +167,7 @@ export class DuaService {
         if (error) {
             console.error('Error updating answer note:', error);
         } else {
-            this.userDuasTrigger.update((n) => n + 1);
+            // this.userDuasTrigger.update((n) => n + 1);
         }
     }
 
