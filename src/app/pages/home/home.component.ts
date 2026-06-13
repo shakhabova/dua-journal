@@ -9,7 +9,7 @@ import {
 import { LucideDynamicIcon } from '@lucide/angular';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
-import type { Dua, UserDua } from '../../models/dua.model';
+import type { Dua } from '../../models/dua.model';
 import { DuaService } from '../../services/dua.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class HomeComponent {
 
     userDuasResource = resource({
         params: () => this.duaService.userDuasTrigger(),
-        loader: ({ params }) => this.duaService.getUserDuas(),
+        loader: () => this.duaService.getUserDuas(),
     });
 
     libraryDuasResource = resource({
