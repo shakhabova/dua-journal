@@ -45,7 +45,7 @@ export class DuaCardComponent {
     isFlipped = signal(false);
     showDropdown = signal(false);
 
-    constructor(private eRef: ElementRef) {}
+    constructor(private eRef: ElementRef) { }
 
     @HostListener('document:click', ['$event'])
     clickout(event: Event) {

@@ -1,79 +1,46 @@
-<div
-    class="dua-card-container"
-    [class.has-back]="!!textAr()"
-    (click)="toggleFlip($event)"
->
+<div class="dua-card-container" [class.has-back]="!!textAr()" (click)="toggleFlip($event)">
     <div class="dua-card-flipper" [class.is-flipped]="isFlipped()">
         <!-- FRONT SIDE -->
-        <div
-            class="dua-card-face dua-card-front dua-card"
-            [class.main-card]="isMain()"
-            [class.answered-card]="isAnswered()"
-            [class.animating]="isAnimating() || isAnimatingAdded()"
-            [class.exporting]="isExporting()"
-        >
-            <div
-                class="card-header"
-                [class.has-dropdown]="id() && !actionText()"
-            >
+        <div class="dua-card-face dua-card-front dua-card" [class.main-card]="isMain()"
+            [class.answered-card]="isAnswered()" [class.animating]="isAnimating() || isAnimatingAdded()"
+            [class.exporting]="isExporting()">
+            <div class="card-header" [class.has-dropdown]="id() && !actionText()">
                 <div class="header-left">
                     @if (category()) {
-                        <span class="badge category">{{ category() }}</span>
+                    <span class="badge category">{{ category() }}</span>
                     }
                     @if (isAnswered()) {
-                        <span class="badge status-answered">
-                            <svg
-                                lucideIcon="check"
-                                class="checkmark checkmark-icon"
-                            ></svg>
-                            Получен ответ
-                        </span>
+                    <span class="badge status-answered">
+                        <svg lucideIcon="check" class="checkmark checkmark-icon"></svg>
+                        В архиве
+                    </span>
                     }
                 </div>
 
                 @if (id() && !actionText() && !isExporting()) {
-                    <div class="dropdown-container">
-                        <button
-                            class="icon-btn"
-                            (click)="toggleDropdown($event)"
-                            aria-label="Меню действий"
-                        >
-                            <svg lucideIcon="ellipsis-vertical"></svg>
+                <div class="dropdown-container">
+                    <button class="icon-btn" (click)="toggleDropdown($event)" aria-label="Меню действий">
+                        <svg lucideIcon="ellipsis-vertical"></svg>
+                    </button>
+                    @if (showDropdown()) {
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item edit" (click)="onEdit()">
+                            <svg lucideIcon="pen" class="icon"></svg>
+                            Редактировать
                         </button>
-                        @if (showDropdown()) {
-                            <div class="dropdown-menu">
-                                <button
-                                    class="dropdown-item edit"
-                                    (click)="onEdit()"
-                                >
-                                    <svg lucideIcon="pen" class="icon"></svg>
-                                    Редактировать
-                                </button>
-                                @if (isAnswered()) {
-                                    <button
-                                        class="dropdown-item"
-                                        (click)="onUnmark()"
-                                    >
-                                        <svg
-                                            lucideIcon="rotate-ccw"
-                                            class="icon"
-                                        ></svg>
-                                        Снять отметку
-                                    </button>
-                                }
-                                <button
-                                    class="dropdown-item delete"
-                                    (click)="onDelete()"
-                                >
-                                    <svg
-                                        lucideIcon="trash-2"
-                                        class="icon"
-                                    ></svg>
-                                    Удалить
-                                </button>
-                            </div>
+                        @if (isAnswered()) {
+                        <button class="dropdown-item" (click)="onUnmark()">
+                            <svg lucideIcon="rotate-ccw" class="icon"></svg>
+                            Вернуть из архива
+                        </button>
                         }
+                        <button class="dropdown-item delete" (click)="onDelete()">
+                            <svg lucideIcon="trash-2" class="icon"></svg>
+                            Удалить
+                        </button>
                     </div>
+                    }
+                </div>
                 }
             </div>
 
@@ -82,111 +49,86 @@
                     "{{ text() }}"
                 </p>
                 @if (reference() && !isSunnahDua()) {
-                    <p class="dua-ref">{{ reference() }}</p>
+                <p class="dua-ref">{{ reference() }}</p>
                 }
                 @if (textAr() && !isExporting()) {
-                    <p class="flip-hint">Нажмите, чтобы увидеть оригинал</p>
+                <p class="flip-hint">Нажмите, чтобы увидеть оригинал</p>
                 }
             </div>
 
             @if ((actionText() || date() || id()) && !isExporting()) {
-                <div class="card-footer">
-                    @if (date()) {
-                        <div class="left-footer">
-                            <span class="date">{{
-                                date() | date: "d MMM yyyy"
-                            }}</span>
+            <div class="card-footer">
+                @if (date()) {
+                <div class="left-footer">
+                    <span class="date">{{
+                        date() | date: "d MMM yyyy"
+                        }}</span>
+                </div>
+                }
+                <!-- Library / Main actions -->
+                @if (actionText()) {
+                <div class="library-footer">
+                    <div class="action-wrapper">
+                        @if (!isAdded()) {
+                        <button class="action-btn" (click)="onBtnClick()">
+                            <svg lucideIcon="plus" class="btn-icon"></svg>
+                            {{ actionText() }}
+                        </button>
+                        }
+                        @if (actionText() && isAdded()) {
+                        <div class="added-state">
+                            <span class="badge status-answered">
+                                <svg lucideIcon="check" class="checkmark checkmark-icon"></svg>
+                                Добавлено в мои ду‘а
+                            </span>
                         </div>
+                        }
+                    </div>
+                    <button class="icon-btn share-btn" aria-label="Поделиться" (click)="onShare()"
+                        title="Поделиться в Telegram/Instagram">
+                        <svg lucideIcon="share-2"></svg>
+                    </button>
+                </div>
+                }
+                <!-- User Dua interactions -->
+                @if (!actionText() && !hideAnswerAction()) {
+                <div class="right-footer">
+                    @if (!isAnswered() && !isAnimating()) {
+                    <button class="mark-answered-btn" (click)="onMarkAnswered()">
+                        <svg lucideIcon="archive" class="btn-icon"></svg>
+                        В архив
+                    </button>
                     }
-                    <!-- Library / Main actions -->
-                    @if (actionText()) {
-                        <div class="library-footer">
-                            <div class="action-wrapper">
-                                @if (!isAdded()) {
-                                    <button
-                                        class="action-btn"
-                                        (click)="onBtnClick()"
-                                    >
-                                        <svg
-                                            lucideIcon="plus"
-                                            class="btn-icon"
-                                        ></svg>
-                                        {{ actionText() }}
-                                    </button>
-                                }
-                                @if (actionText() && isAdded()) {
-                                    <div class="added-state">
-                                        <span class="badge status-answered">
-                                            <svg
-                                                lucideIcon="check"
-                                                class="checkmark checkmark-icon"
-                                            ></svg>
-                                            Добавлено в мои ду‘а
-                                        </span>
-                                    </div>
-                                }
-                            </div>
-                            <button
-                                class="icon-btn share-btn"
-                                aria-label="Поделиться"
-                                (click)="onShare()"
-                                title="Поделиться в Telegram/Instagram"
-                            >
-                                <svg lucideIcon="share-2"></svg>
-                            </button>
-                        </div>
-                    }
-                    <!-- User Dua interactions -->
-                    @if (!actionText() && !hideAnswerAction()) {
-                        <div class="right-footer">
-                            @if (!isAnswered() && !isAnimating()) {
-                                <button
-                                    class="mark-answered-btn"
-                                    (click)="onMarkAnswered()"
-                                >
-                                    <svg
-                                        lucideIcon="check"
-                                        class="btn-icon"
-                                    ></svg>
-                                    Добавить в ответы
-                                </button>
-                            }
-                            @if (isAnswered() || isAnimating()) {
-                                <span class="badge status-answered">
-                                    <svg
-                                        lucideIcon="check"
-                                        class="checkmark checkmark-icon"
-                                    ></svg>
-                                    Отвечено
-                                </span>
-                            }
-                        </div>
+                    @if (isAnswered() || isAnimating()) {
+                    <span class="badge status-answered">
+                        <svg lucideIcon="check" class="checkmark checkmark-icon"></svg>
+                        В архиве
+                    </span>
                     }
                 </div>
+                }
+            </div>
             }
             <ng-content select="[card-extension]"></ng-content>
         </div>
 
         <!-- BACK SIDE -->
         @if (textAr()) {
-            <div
-                class="dua-card-face dua-card-back dua-card"
-                [class.main-card]="isMain()"
-                [class.exporting]="isExporting()"
-            >
-                <div class="card-content back-content">
-                    <p class="dua-text-ar">{{ textAr() }}</p>
-                    @if (transcription()) {
-                        <p class="dua-transcription">{{ transcription() }}</p>
-                    }
-                    @if (reference() && !isSunnahDua()) {
-                        <p class="dua-ref">{{ reference() }}</p>
-                    }
-                    @if (!isExporting()) {
-                        <p class="flip-hint">Нажмите, чтобы вернуться</p>
-                    }
-                </div>
+        <div class="dua-card-face dua-card-back dua-card" [class.main-card]="isMain()"
+            [class.exporting]="isExporting()">
+            <div class="card-content back-content">
+                <p class="dua-text-ar">{{ textAr() }}</p>
+                @if (transcription()) {
+                <p class="dua-transcription">{{ transcription() }}</p>
+                }
+                @if (reference() && !isSunnahDua()) {
+                <p class="dua-ref">{{ reference() }}</p>
+                }
+                @if (!isExporting()) {
+                <p class="flip-hint">Нажмите, чтобы вернуться</p>
+                }
             </div>
+        </div>
         }
     </div>
 </div>

@@ -11,6 +11,6 @@ export const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [authGuard] },
     { path: 'my-duas', component: MyDuasComponent, canActivate: [authGuard] },
     { path: 'library', component: LibraryComponent, canActivate: [authGuard] },
-    { path: 'answers', component: AnswersComponent, canActivate: [authGuard] },
+    { path: 'archive', component: AnswersComponent, canActivate: [authGuard] },
     { path: '**', redirectTo: '' },
 ];

@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import {
+    LucideArchive,
     LucideBookOpen,
     LucideCheck,
     LucideCircleAlert,
@@ -56,6 +57,7 @@ export const appConfig: ApplicationConfig = {
             LucideLibrary,
             LucideSearch,
             LucideX,
+            LucideArchive,
         ),
     ],
 };
