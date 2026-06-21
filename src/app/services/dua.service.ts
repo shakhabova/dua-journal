@@ -1,5 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import type { Dua, UserDua } from '../models/dua.model';
+import { EncryptionService } from './encryption.service';
 import { SupabaseService } from './supabase.service';
 
 @Injectable({
@@ -7,6 +8,7 @@ import { SupabaseService } from './supabase.service';
 })
 export class DuaService {
     private supabaseService = inject(SupabaseService);
+    private encryptionService = inject(EncryptionService);
     public userDuasTrigger = signal<number>(0);
 
     /**
@@ -17,31 +19,96 @@ export class DuaService {
         if (!user) return [];
 
         const { data, error } = await this.supabaseService.supabase
-            .from('user_duas')
-            .select('*')
-            .order('date_added', { ascending: false });
+            .from('user_duas_v2')
+            .select('*');
 
         if (error) {
             console.error('Error fetching user duas:', error);
             throw error;
         }
 
-        return (data || []).map((item) => ({
-            id: item.id,
-            category: item.category || undefined,
-            text: item.text,
-            textAr: item.text_ar || undefined,
-            transcription: item.transcription || undefined,
-            reference: item.reference || undefined,
-            dateAdded: new Date(item.date_added),
-            answeredAt: item.answered_at
-                ? new Date(item.answered_at)
-                : undefined,
-            answerNote: item.answer_note || undefined,
-            isAnswered: item.is_answered,
-            isCustom: item.is_custom,
-            originalDuaId: item.original_dua_id || undefined,
-        }));
+        // Fetch library duas to resolve textAr, transcription, reference by originalDuaId
+        let libraryMap = new Map<string, Dua>();
+        try {
+            const libraryDuas = await this.getLibraryDuas();
+            libraryMap = new Map(libraryDuas.map((d) => [d.id, d]));
+        } catch (libErr) {
+            console.error('Failed to load library duas for joining:', libErr);
+        }
+
+        const decodedDuas: UserDua[] = [];
+
+        for (const item of data || []) {
+            try {
+                let parsed: any = {};
+                const encryptedData = (item as any).data;
+
+                if (encryptedData) {
+                    const decryptedJson =
+                        await this.encryptionService.decrypt(encryptedData);
+                    parsed = JSON.parse(decryptedJson);
+                } else {
+                    // Fallback to legacy fields if data column is missing or empty
+                    parsed = {
+                        id: item.id,
+                        category: (item as any).category || undefined,
+                        text: (item as any).text
+                            ? await this.encryptionService.decrypt(
+                                  (item as any).text,
+                              )
+                            : '',
+                        dateAdded: (item as any).date_added
+                            ? new Date((item as any).date_added).toISOString()
+                            : new Date().toISOString(),
+                        answeredAt: (item as any).answered_at
+                            ? new Date((item as any).answered_at).toISOString()
+                            : undefined,
+                        answerNote: (item as any).answer_note
+                            ? await this.encryptionService.decrypt(
+                                  (item as any).answer_note,
+                              )
+                            : undefined,
+                        isAnswered: (item as any).is_answered || false,
+                        isCustom: (item as any).is_custom !== false,
+                        originalDuaId:
+                            (item as any).original_dua_id || undefined,
+                    };
+                }
+
+                const originalDuaId = parsed.originalDuaId || undefined;
+                const libDua = originalDuaId
+                    ? libraryMap.get(originalDuaId)
+                    : undefined;
+
+                decodedDuas.push({
+                    id: item.id,
+                    category: parsed.category || undefined,
+                    text: parsed.text || '',
+                    textAr: libDua?.textAr || undefined,
+                    transcription: libDua?.transcription || undefined,
+                    reference: libDua?.reference || undefined,
+                    dateAdded: parsed.dateAdded
+                        ? new Date(parsed.dateAdded)
+                        : new Date(),
+                    answeredAt: parsed.answeredAt
+                        ? new Date(parsed.answeredAt)
+                        : undefined,
+                    answerNote: parsed.answerNote || undefined,
+                    isAnswered: !!parsed.isAnswered,
+                    isCustom: parsed.isCustom !== false,
+                    originalDuaId: originalDuaId,
+                });
+            } catch (err) {
+                console.error('Error decoding user dua item:', item.id, err);
+            }
+        }
+
+        // Sort by dateAdded descending
+        decodedDuas.sort(
+            (a, b) => b.dateAdded.getTime() - a.dateAdded.getTime(),
+        );
+
+        return decodedDuas;
     }
 
     async getLibraryDuas(): Promise<Dua[]> {
@@ -68,7 +135,6 @@ export class DuaService {
         text: string,
         category: string = '',
         originalDuaId?: string,
-        sourceDetails?: Pick<Dua, 'textAr' | 'transcription' | 'reference'>,
     ) {
         const user = this.supabaseService.user();
         if (!user) return;
@@ -76,20 +142,28 @@ export class DuaService {
         const newDuaId = `u${Date.now().toString()}`;
         const dateAdded = new Date();
 
+        // Create a JSON with all fields (excluding user_id, textAr, transcription, reference)
+        const duaData = {
+            id: newDuaId,
+            category: category || '',
+            text: text,
+            dateAdded: dateAdded.toISOString(),
+            isAnswered: false,
+            isCustom: !originalDuaId,
+            originalDuaId: originalDuaId || null,
+        };
+
+        // Encrypt the JSON string
+        const encryptedData = await this.encryptionService.encrypt(
+            JSON.stringify(duaData),
+        );
+
         const { error } = await this.supabaseService.supabase
-            .from('user_duas')
+            .from('user_duas_v2')
             .insert({
                 id: newDuaId,
                 user_id: user.id,
-                category: category || '',
-                text: text,
-                text_ar: sourceDetails?.textAr || null,
-                transcription: sourceDetails?.transcription || null,
-                reference: sourceDetails?.reference || null,
-                date_added: dateAdded.toISOString(),
-                is_answered: false,
-                is_custom: true,
-                original_dua_id: originalDuaId || null,
+                data: encryptedData,
             });
 
         if (error) {
@@ -99,24 +173,62 @@ export class DuaService {
         }
     }
 
-    async markAsAnswered(id: string) {
+    async markAsAnswered(
+        id: string,
+        callTrigger = true,
+        errorCallback = () => {},
+    ) {
         const user = this.supabaseService.user();
         if (!user) return;
 
-        const answeredAt = new Date();
+        // Fetch the existing user dua data
+        const { data: existingData, error: fetchError } =
+            await this.supabaseService.supabase
+                .from('user_duas_v2')
+                .select('data')
+                .eq('id', id)
+                .single();
 
-        const { error } = await this.supabaseService.supabase
-            .from('user_duas')
-            .update({
-                is_answered: true,
-                answered_at: answeredAt.toISOString(),
-            })
-            .eq('id', id);
+        if (fetchError || !existingData) {
+            console.error(
+                'Error fetching dua to mark as answered:',
+                fetchError,
+            );
+            errorCallback();
+            return;
+        }
 
-        if (error) {
-            console.error('Error marking dua as answered:', error);
-        } else {
-            this.userDuasTrigger.update((n) => n + 1);
+        try {
+            const decryptedJson = await this.encryptionService.decrypt(
+                existingData.data,
+            );
+            const parsed = JSON.parse(decryptedJson);
+
+            parsed.isAnswered = true;
+            parsed.answeredAt = new Date().toISOString();
+
+            const encryptedData = await this.encryptionService.encrypt(
+                JSON.stringify(parsed),
+            );
+
+            const { error } = await this.supabaseService.supabase
+                .from('user_duas_v2')
+                .update({
+                    data: encryptedData,
+                })
+                .eq('id', id);
+
+            if (error) {
+                console.error('Error marking dua as answered:', error);
+                errorCallback();
+            } else {
+                if (callTrigger) {
+                    this.userDuasTrigger.update((n) => n + 1);
+                }
+            }
+        } catch (err) {
+            console.error('Error processing markAsAnswered:', err);
+            errorCallback();
         }
     }
 
@@ -124,18 +236,49 @@ export class DuaService {
         const user = this.supabaseService.user();
         if (!user) return;
 
-        const { error } = await this.supabaseService.supabase
-            .from('user_duas')
-            .update({
-                is_answered: false,
-                answered_at: null,
-            })
-            .eq('id', id);
+        // Fetch the existing user dua data
+        const { data: existingData, error: fetchError } =
+            await this.supabaseService.supabase
+                .from('user_duas_v2')
+                .select('data')
+                .eq('id', id)
+                .single();
 
-        if (error) {
-            console.error('Error unmarking dua as answered:', error);
-        } else {
-            this.userDuasTrigger.update((n) => n + 1);
+        if (fetchError || !existingData) {
+            console.error(
+                'Error fetching dua to unmark as answered:',
+                fetchError,
+            );
+            return;
+        }
+
+        try {
+            const decryptedJson = await this.encryptionService.decrypt(
+                existingData.data,
+            );
+            const parsed = JSON.parse(decryptedJson);
+
+            parsed.isAnswered = false;
+            parsed.answeredAt = undefined;
+
+            const encryptedData = await this.encryptionService.encrypt(
+                JSON.stringify(parsed),
+            );
+
+            const { error } = await this.supabaseService.supabase
+                .from('user_duas_v2')
+                .update({
+                    data: encryptedData,
+                })
+                .eq('id', id);
+
+            if (error) {
+                console.error('Error unmarking dua as answered:', error);
+            } else {
+                this.userDuasTrigger.update((n) => n + 1);
+            }
+        } catch (err) {
+            console.error('Error processing unmarkAsAnswered:', err);
         }
     }
 
@@ -143,15 +286,46 @@ export class DuaService {
         const user = this.supabaseService.user();
         if (!user) return;
 
-        const { error } = await this.supabaseService.supabase
-            .from('user_duas')
-            .update({ text, category })
-            .eq('id', id);
+        // Fetch the existing user dua data
+        const { data: existingData, error: fetchError } =
+            await this.supabaseService.supabase
+                .from('user_duas_v2')
+                .select('data')
+                .eq('id', id)
+                .single();
 
-        if (error) {
-            console.error('Error updating dua:', error);
-        } else {
-            this.userDuasTrigger.update((n) => n + 1);
+        if (fetchError || !existingData) {
+            console.error('Error fetching dua to update:', fetchError);
+            return;
+        }
+
+        try {
+            const decryptedJson = await this.encryptionService.decrypt(
+                existingData.data,
+            );
+            const parsed = JSON.parse(decryptedJson);
+
+            parsed.text = text;
+            parsed.category = category;
+
+            const encryptedData = await this.encryptionService.encrypt(
+                JSON.stringify(parsed),
+            );
+
+            const { error } = await this.supabaseService.supabase
+                .from('user_duas_v2')
+                .update({
+                    data: encryptedData,
+                })
+                .eq('id', id);
+
+            if (error) {
+                console.error('Error updating dua:', error);
+            } else {
+                this.userDuasTrigger.update((n) => n + 1);
+            }
+        } catch (err) {
+            console.error('Error processing updateUserDua:', err);
         }
     }
 
@@ -159,31 +333,64 @@ export class DuaService {
         const user = this.supabaseService.user();
         if (!user) return;
 
-        const { error } = await this.supabaseService.supabase
-            .from('user_duas')
-            .update({ answer_note: answerNote })
-            .eq('id', id);
+        // Fetch the existing user dua data
+        const { data: existingData, error: fetchError } =
+            await this.supabaseService.supabase
+                .from('user_duas_v2')
+                .select('data')
+                .eq('id', id)
+                .single();
 
-        if (error) {
-            console.error('Error updating answer note:', error);
-        } else {
-            // this.userDuasTrigger.update((n) => n + 1);
+        if (fetchError || !existingData) {
+            console.error(
+                'Error fetching dua to update answer note:',
+                fetchError,
+            );
+            return;
+        }
+
+        try {
+            const decryptedJson = await this.encryptionService.decrypt(
+                existingData.data,
+            );
+            const parsed = JSON.parse(decryptedJson);
+
+            parsed.answerNote = answerNote;
+
+            const encryptedData = await this.encryptionService.encrypt(
+                JSON.stringify(parsed),
+            );
+
+            const { error } = await this.supabaseService.supabase
+                .from('user_duas_v2')
+                .update({
+                    data: encryptedData,
+                })
+                .eq('id', id);
+
+            if (error) {
+                console.error('Error updating answer note:', error);
+            }
+        } catch (err) {
+            console.error('Error processing updateAnswerNote:', err);
         }
     }
 
-    async deleteUserDua(id: string) {
+    async deleteUserDua(id: string, callTrigger = true) {
         const user = this.supabaseService.user();
         if (!user) return;
 
         const { error } = await this.supabaseService.supabase
-            .from('user_duas')
+            .from('user_duas_v2')
             .delete()
             .eq('id', id);
 
         if (error) {
             console.error('Error deleting dua:', error);
         } else {
-            this.userDuasTrigger.update((n) => n + 1);
+            if (callTrigger) {
+                this.userDuasTrigger.update((n) => n + 1);
+            }
         }
     }
 }

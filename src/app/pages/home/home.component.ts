@@ -77,11 +77,7 @@ export class HomeComponent {
         const dua = this.selectedLibraryDua();
         if (!dua) return;
 
-        this.duaService.addUserDua(data.text, data.category, dua.id, {
-            textAr: dua.textAr,
-            transcription: dua.transcription,
-            reference: dua.reference,
-        });
+        this.duaService.addUserDua(data.text, data.category, dua.id);
         this.closeCategoryModal();
         this.userDuasResource.reload();
     }

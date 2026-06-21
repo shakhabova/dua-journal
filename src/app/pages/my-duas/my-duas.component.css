@@ -145,7 +145,7 @@
     background: var(--bg-card);
     border-radius: 12px;
     padding: 24px;
-    margin-bottom: 0px !important; /* Managed by cards-list container */
+    margin-bottom: 0px; /* Managed by cards-list container */
     box-shadow: var(--shadow-soft);
 }
 

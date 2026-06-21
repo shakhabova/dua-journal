@@ -117,7 +117,7 @@ export function classes(
             const newClasses = toClassList(computed());
 
             // Update this source's classes, keeping the original order
-            manager!.sources.set(sourceId, {
+            manager?.sources.set(sourceId, {
                 classes: new Set(newClasses),
                 order: sourceOrder,
             });
@@ -128,7 +128,7 @@ export function classes(
             // Re-enable transitions after the first effect writes correct classes.
             // Deferred to next animation frame so the browser paints the class change
             // with transitions disabled first, then re-enables them.
-            if (manager!.transitionsSuppressed) {
+            if (manager?.transitionsSuppressed) {
                 manager!.transitionsSuppressed = false;
                 manager!.restoreRafId = requestAnimationFrame(() => {
                     manager!.restoreRafId = null;
@@ -139,21 +139,21 @@ export function classes(
 
         // Register cleanup with DestroyRef
         destroyRef.onDestroy(() => {
-            if (manager!.restoreRafId !== null) {
-                cancelAnimationFrame(manager!.restoreRafId);
+            if (manager?.restoreRafId !== null) {
+                cancelAnimationFrame(manager?.restoreRafId);
                 manager!.restoreRafId = null;
             }
 
-            if (manager!.transitionsSuppressed) {
+            if (manager?.transitionsSuppressed) {
                 manager!.transitionsSuppressed = false;
                 restoreTransitionSuppression(manager!);
             }
 
             // Remove this source from the manager
-            manager!.sources.delete(sourceId);
+            manager?.sources.delete(sourceId);
 
             // If no more sources, clean up the manager
-            if (manager!.sources.size === 0) {
+            if (manager?.sources.size === 0) {
                 cleanupManager(element);
             } else {
                 // Update element without this source's classes

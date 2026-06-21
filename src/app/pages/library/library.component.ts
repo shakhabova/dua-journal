@@ -13,7 +13,7 @@ import { LucideDynamicIcon } from '@lucide/angular';
 import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
-import type { Dua, UserDua } from '../../models/dua.model';
+import type { Dua } from '../../models/dua.model';
 import { DuaService } from '../../services/dua.service';
 
 @Component({
@@ -66,11 +66,9 @@ export class LibraryComponent {
             duas = duas.filter(
                 (d) =>
                     d.textRu.toLowerCase().includes(query) ||
-                    (d.transcription &&
-                        d.transcription.toLowerCase().includes(query)) ||
-                    (d.reference &&
-                        d.reference.toLowerCase().includes(query)) ||
-                    (d.textAr && d.textAr.toLowerCase().includes(query)),
+                    d.transcription?.toLowerCase().includes(query) ||
+                    d.reference?.toLowerCase().includes(query) ||
+                    d.textAr?.toLowerCase().includes(query),
             );
         }
 
@@ -94,11 +92,7 @@ export class LibraryComponent {
         const dua = this.selectedLibraryDua();
         if (!dua) return;
 
-        this.duaService.addUserDua(data.text, data.category, dua.id, {
-            textAr: dua.textAr,
-            transcription: dua.transcription,
-            reference: dua.reference,
-        });
+        this.duaService.addUserDua(data.text, data.category, dua.id);
         this.closeCategoryModal();
         this.userDuasResource.reload();
     }

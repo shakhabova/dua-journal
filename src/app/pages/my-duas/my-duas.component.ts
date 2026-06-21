@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
+    effect,
     inject,
     resource,
     signal,
@@ -10,8 +11,8 @@ import { LucideDynamicIcon } from '@lucide/angular';
 import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
-import type { UserDua } from '../../models/dua.model';
 import { DuaService } from '../../services/dua.service';
+import { Dua, UserDua } from '../../models/dua.model';
 
 @Component({
     selector: 'app-my-duas',
@@ -30,7 +31,7 @@ export class MyDuasComponent {
 
     userDuasResource = resource({
         params: () => this.duaService.userDuasTrigger(),
-        loader: ({ params }) => this.duaService.getUserDuas(),
+        loader: () => this.duaService.getUserDuas(),
     });
 
     myDuas = computed(() => this.userDuasResource.value() ?? []);
@@ -68,6 +69,10 @@ export class MyDuasComponent {
     editingDuaId = signal<string | null>(null);
     editInitialText = signal('');
     editInitialCategory = signal('');
+
+    constructor() {
+        effect(() => console.log(this.userDuasResource.status()));
+    }
 
     toggleFilter() {
         this.isFilterOpen.update((v) => !v);
@@ -110,13 +115,18 @@ export class MyDuasComponent {
         this.userDuasResource.reload();
     }
 
-    markAnswered(duaId: string) {
-        this.duaService.markAsAnswered(duaId);
+    async markAnswered(duaId: string, dua: UserDua) {
+        dua.isAnswered = true;
+        await this.duaService.markAsAnswered(
+            duaId,
+            false,
+            () => (dua.isAnswered = false),
+        );
         this.userDuasResource.reload();
     }
 
-    deleteDua(id: string) {
-        this.duaService.deleteUserDua(id);
+    async deleteDua(id: string) {
+        await this.duaService.deleteUserDua(id, false);
         this.userDuasResource.reload();
     }
 

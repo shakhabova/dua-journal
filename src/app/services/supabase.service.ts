@@ -115,7 +115,7 @@ export class SupabaseService {
     async loginWithTelegramMiniApp(): Promise<boolean> {
         try {
             const tg = (window as any).Telegram?.WebApp;
-            if (!tg || !tg.initData) {
+            if (!tg?.initData) {
                 return false;
             }
 

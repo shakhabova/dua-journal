@@ -1,69 +1,97 @@
 <div class="container page-container">
-
-  <div class="header-section">
-    <div class="stats">
-      <span class="stat-item"><strong>{{ activeCount() }}</strong> активно</span>
-      <span class="stat-item"><strong>{{ answeredCount() }}</strong> в архиве</span>
+    <div class="header-section">
+        <div class="stats">
+            <span class="stat-item"
+                ><strong>{{ activeCount() }}</strong> активно</span
+            >
+            <span class="stat-item"
+                ><strong>{{ answeredCount() }}</strong> отвечено</span
+            >
+        </div>
+        <button class="add-btn" (click)="openModal()">
+            <svg lucideIcon="plus" class="btn-icon"></svg> Добавить ду‘а
+        </button>
     </div>
-    <button class="add-btn" (click)="openModal()">
-      <svg lucideIcon="plus" class="btn-icon"></svg> Добавить ду‘а
-    </button>
-  </div>
 
-  <div class="actions-row">
-    @if (myDuas().length > 0) {
-    <button class="filter-toggle-btn" (click)="toggleFilter()" [class.active]="isFilterOpen()">
-      <svg lucideIcon="sliders-horizontal" class="btn-icon"></svg>
-      Фильтр {{ selectedFilter() !== 'Все' ? '· ' + selectedFilter() : '' }}
-    </button>
-    }
-  </div>
-
-  <div class="filters-container" [class.expanded]="isFilterOpen()">
-    @for (cat of categories; track cat) {
-    <button class="filter-chip" [class.active]="cat === selectedFilter()" (click)="setFilter(cat)">
-      {{ cat }}
-    </button>
-    }
-  </div>
-
-  <hr class="divider line-only">
-
-  <div class="cards-list">
-    @if (userDuasResource.isLoading()) {
-    @for (i of [1, 2, 3]; track i) {
-    <div class="dua-card skeleton-card">
-      <div class="card-header">
-        <hlm-skeleton class="h-[22px] w-20 rounded-full" />
-        <hlm-skeleton class="size-6 rounded-full" />
-      </div>
-      <div class="card-content">
-        <hlm-skeleton class="h-3.5 w-[90%]" />
-        <hlm-skeleton class="h-3.5 w-[95%] mt-2" />
-        <hlm-skeleton class="h-3.5 w-[60%] mt-2" />
-      </div>
-      <div class="card-footer">
-        <hlm-skeleton class="h-3 w-[100px]" />
-        <hlm-skeleton class="h-7 w-[90px] rounded-full" />
-      </div>
+    <div class="actions-row">
+        @if (myDuas().length > 0) {
+            <button
+                class="filter-toggle-btn"
+                (click)="toggleFilter()"
+                [class.active]="isFilterOpen()"
+            >
+                <svg lucideIcon="sliders-horizontal" class="btn-icon"></svg>
+                Фильтр
+                {{ selectedFilter() !== "Все" ? "· " + selectedFilter() : "" }}
+            </button>
+        }
     </div>
-    }
-    } @else {
-    @for (dua of filteredDuas(); track dua) {
-    <app-dua-card [id]="dua.id" [text]="dua.text" [textAr]="dua.textAr" [transcription]="dua.transcription"
-      [reference]="dua.reference" [category]="dua.category" [date]="dua.dateAdded"
-      [isAnswered]="!dua.isAnswered ? false : true" (markAnswered)="markAnswered($event)"
-      (editClicked)="openEditModal($event)" (deleteClicked)="deleteDua($event)"
-      (unmarkAnswered)="unmarkAnswered($event)">
-    </app-dua-card>
-    }
-    }
-  </div>
 
+    <div class="filters-container" [class.expanded]="isFilterOpen()">
+        @for (cat of categories; track cat) {
+            <button
+                class="filter-chip"
+                [class.active]="cat === selectedFilter()"
+                (click)="setFilter(cat)"
+            >
+                {{ cat }}
+            </button>
+        }
+    </div>
+
+    <hr class="divider line-only" />
+
+    <div class="cards-list">
+        @if (
+            userDuasResource.isLoading() &&
+            userDuasResource.status() !== "reloading"
+        ) {
+            @for (i of [1, 2, 3]; track i) {
+                <div class="dua-card skeleton-card">
+                    <div class="card-header">
+                        <hlm-skeleton class="h-[22px] w-20 rounded-full" />
+                        <hlm-skeleton class="size-6 rounded-full" />
+                    </div>
+                    <div class="card-content">
+                        <hlm-skeleton class="h-3.5 w-[90%]" />
+                        <hlm-skeleton class="h-3.5 w-[95%] mt-2" />
+                        <hlm-skeleton class="h-3.5 w-[60%] mt-2" />
+                    </div>
+                    <div class="card-footer">
+                        <hlm-skeleton class="h-3 w-[100px]" />
+                        <hlm-skeleton class="h-7 w-[90px] rounded-full" />
+                    </div>
+                </div>
+            }
+        } @else {
+            @for (dua of filteredDuas(); track dua) {
+                <app-dua-card
+                    [id]="dua.id"
+                    [text]="dua.text"
+                    [textAr]="dua.textAr"
+                    [transcription]="dua.transcription"
+                    [reference]="dua.reference"
+                    [category]="dua.category"
+                    [date]="dua.dateAdded"
+                    [isAnswered]="!dua.isAnswered ? false : true"
+                    (markAnswered)="markAnswered($event, dua)"
+                    (editClicked)="openEditModal($event)"
+                    (deleteClicked)="deleteDua($event)"
+                    (unmarkAnswered)="unmarkAnswered($event)"
+                >
+                </app-dua-card>
+            }
+        }
+    </div>
 </div>
 
 @if (isModalOpen()) {
-<app-add-dua-modal [editMode]="isEditMode()" [initialText]="editInitialText()" [initialCategory]="editInitialCategory()"
-  (close)="closeModal()" (save)="saveNewDua($event)">
-</app-add-dua-modal>
+    <app-add-dua-modal
+        [editMode]="isEditMode()"
+        [initialText]="editInitialText()"
+        [initialCategory]="editInitialCategory()"
+        (close)="closeModal()"
+        (save)="saveNewDua($event)"
+    >
+    </app-add-dua-modal>
 }

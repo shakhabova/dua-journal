@@ -101,7 +101,7 @@ export class DuaCardComponent {
         } else if (this.source() === 'Sunnah') {
             sourceLabel = 'Сунна';
         } else if (this.reference()) {
-            const ref = this.reference()!.toLowerCase();
+            const ref = this.reference()?.toLowerCase() || '';
             if (ref.includes('коран') || ref.includes('сура')) {
                 sourceLabel = 'Коран';
             } else if (
@@ -170,7 +170,7 @@ export class DuaCardComponent {
             return true;
         }
         if (this.reference()) {
-            const ref = this.reference()!.toLowerCase();
+            const ref = this.reference()?.toLowerCase() || '';
             return (
                 ref.includes('бухари') ||
                 ref.includes('муслим') ||
