@@ -60,12 +60,16 @@ export class EncryptionService {
 
         try {
             // 1. Invoke the secure Supabase Edge Function to retrieve the derived key
-            const { data, error } = await this.supabaseService.supabase.functions.invoke(
-                'derive-encryption-key'
-            );
+            const { data, error } =
+                await this.supabaseService.supabase.functions.invoke(
+                    'derive-encryption-key',
+                );
 
             if (error || !data?.success || !data?.key) {
-                console.error('Failed to retrieve derived encryption key:', error || data?.error);
+                console.error(
+                    'Failed to retrieve derived encryption key:',
+                    error || data?.error,
+                );
                 return;
             }
 
@@ -78,7 +82,7 @@ export class EncryptionService {
                 rawKey as any,
                 'AES-GCM',
                 false,
-                ['encrypt', 'decrypt']
+                ['encrypt', 'decrypt'],
             );
 
             this.isLocked.set(false);
@@ -102,7 +106,7 @@ export class EncryptionService {
      */
     public async encrypt(text: string | undefined | null): Promise<string> {
         if (!text) return '';
-        
+
         await this.ensureKeyLoaded();
         if (this.isLocked() || !this.key) {
             return text;
@@ -118,10 +122,12 @@ export class EncryptionService {
         const ciphertext = await crypto.subtle.encrypt(
             { name: 'AES-GCM', iv: iv as any },
             this.key,
-            encoder.encode(text)
+            encoder.encode(text),
         );
 
-        return 'enc:' + this.bufToBase64(iv) + ':' + this.bufToBase64(ciphertext);
+        return (
+            'enc:' + this.bufToBase64(iv) + ':' + this.bufToBase64(ciphertext)
+        );
     }
 
     /**
@@ -148,7 +154,7 @@ export class EncryptionService {
             const decrypted = await crypto.subtle.decrypt(
                 { name: 'AES-GCM', iv: iv as any },
                 this.key,
-                ciphertext as any
+                ciphertext as any,
             );
 
             return new TextDecoder().decode(decrypted);
