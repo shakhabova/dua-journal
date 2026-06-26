@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         if (this.telegramService.isTelegramMiniApp()) {
-            const tg = (window as any).Telegram?.WebApp;
+            const tg = window.Telegram?.WebApp;
             if (tg) {
                 document.documentElement.classList.add('is-telegram');
                 tg.ready();
