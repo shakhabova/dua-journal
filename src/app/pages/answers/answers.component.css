@@ -351,5 +351,5 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
 }

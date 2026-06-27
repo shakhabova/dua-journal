@@ -9,55 +9,25 @@ export type Json =
 export type Database = {
     public: {
         Tables: {
-            user_duas: {
+            user_duas_v2: {
                 Row: {
                     id: string;
                     user_id: string;
-                    category: string | null;
-                    text: string;
-                    text_ar: string | null;
-                    transcription: string | null;
-                    reference: string | null;
-                    date_added: string;
-                    answered_at: string | null;
-                    answer_note: string | null;
-                    is_answered: boolean;
-                    is_custom: boolean;
-                    original_dua_id: string | null;
+                    data: string;
                 };
                 Insert: {
                     id: string;
                     user_id: string;
-                    category?: string | null;
-                    text: string;
-                    text_ar?: string | null;
-                    transcription?: string | null;
-                    reference?: string | null;
-                    date_added?: string;
-                    answered_at?: string | null;
-                    answer_note?: string | null;
-                    is_answered?: boolean;
-                    is_custom?: boolean;
-                    original_dua_id?: string | null;
+                    data: string;
                 };
                 Update: {
                     id?: string;
                     user_id?: string;
-                    category?: string | null;
-                    text?: string;
-                    text_ar?: string | null;
-                    transcription?: string | null;
-                    reference?: string | null;
-                    date_added?: string;
-                    answered_at?: string | null;
-                    answer_note?: string | null;
-                    is_answered?: boolean;
-                    is_custom?: boolean;
-                    original_dua_id?: string | null;
+                    data?: string;
                 };
                 Relationships: [
                     {
-                        foreignKeyName: 'user_duas_user_id_fkey';
+                        foreignKeyName: 'user_duas_v2_user_id_fkey';
                         columns: ['user_id'];
                         isOneToOne: false;
                         referencedRelation: 'users';

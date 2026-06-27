@@ -3,7 +3,7 @@ import { type CanActivateFn, Router } from '@angular/router';
 import { SupabaseService } from './supabase.service';
 import { TelegramService } from './telegram.service';
 
-export const authGuard: CanActivateFn = async (route, state) => {
+export const authGuard: CanActivateFn = async (_route, _state) => {
     const supabaseService = inject(SupabaseService);
     const telegramService = inject(TelegramService);
     const router = inject(Router);

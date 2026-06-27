@@ -39,20 +39,26 @@ export class HomeComponent {
 
     dailyDua = computed<Dua | undefined>(() => {
         const duas = this.libraryDuasResource.value() ?? [];
-        return duas[0];
+        if (duas.length === 0) return undefined;
+        const seed = getDailySeed(0);
+        const random = mulberry32(seed);
+        const index = Math.floor(random() * duas.length);
+        return duas[index];
     });
 
-    quranDuas = computed(() =>
-        (this.libraryDuasResource.value() ?? []).filter(
+    quranDuas = computed(() => {
+        const duas = (this.libraryDuasResource.value() ?? []).filter(
             (d) => d.source === 'Quran',
-        ),
-    );
+        );
+        return getDailySelection(duas, 5, getDailySeed(100));
+    });
 
-    sunnahDuas = computed(() =>
-        (this.libraryDuasResource.value() ?? []).filter(
+    sunnahDuas = computed(() => {
+        const duas = (this.libraryDuasResource.value() ?? []).filter(
             (d) => d.source === 'Sunnah',
-        ),
-    );
+        );
+        return getDailySelection(duas, 5, getDailySeed(200));
+    });
 
     addedDuaIds = computed(() => {
         const ids = (this.userDuasResource.value() ?? [])
@@ -77,12 +83,44 @@ export class HomeComponent {
         const dua = this.selectedLibraryDua();
         if (!dua) return;
 
-        this.duaService.addUserDua(data.text, data.category, dua.id, {
-            textAr: dua.textAr,
-            transcription: dua.transcription,
-            reference: dua.reference,
-        });
+        this.duaService.addUserDua(data.text, data.category, dua.id);
         this.closeCategoryModal();
         this.userDuasResource.reload();
     }
+}
+
+function getDailySeed(offset = 0): number {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    return year * 10000 + month * 100 + day + offset;
+}
+
+function mulberry32(a: number) {
+    return () => {
+        let t = (a += 0x6d2b79f5);
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+}
+
+function seededShuffle<T>(array: T[], seed: number): T[] {
+    const shuffled = [...array];
+    const random = mulberry32(seed);
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(random() * (i + 1));
+        const temp = shuffled[i];
+        shuffled[i] = shuffled[j];
+        shuffled[j] = temp;
+    }
+    return shuffled;
+}
+
+function getDailySelection<T>(array: T[], count: number, seed: number): T[] {
+    if (array.length <= count) {
+        return array;
+    }
+    return seededShuffle(array, seed).slice(0, count);
 }

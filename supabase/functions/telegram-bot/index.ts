@@ -13,6 +13,11 @@ serve(async (req) => {
         return new Response('ok', { headers: corsHeaders });
     }
 
+    const secretToken = req.headers.get('x-telegram-bot-api-secret-token');
+    if (secretToken !== Deno.env.get('TELEGRAM_SECRET_TOKEN')) {
+        return new Response('Unauthorized', { status: 401 });
+    }
+
     try {
         const botToken = Deno.env.get('TELEGRAM_BOT_TOKEN');
         if (!botToken) {

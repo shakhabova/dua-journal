@@ -119,8 +119,8 @@
 }
 
 .centered {
-    margin-left: auto !important;
-    margin-right: auto !important;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
 }
 

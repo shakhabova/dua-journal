@@ -15,7 +15,6 @@ import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
 import { DuaCardComponent } from '../../components/dua-card/dua-card.component';
-import type { UserDua } from '../../models/dua.model';
 import { DuaService } from '../../services/dua.service';
 
 @Component({

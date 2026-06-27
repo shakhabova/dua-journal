@@ -16,7 +16,7 @@ export class ThemeService {
         if (!isPlatformBrowser(this.platformId)) return;
 
         const tg = (window as any).Telegram?.WebApp;
-        if (tg && tg.colorScheme) {
+        if (tg?.colorScheme) {
             this.isDarkTheme.set(tg.colorScheme === 'dark');
 
             // Listen to dynamic theme changes from Telegram Mini App container
