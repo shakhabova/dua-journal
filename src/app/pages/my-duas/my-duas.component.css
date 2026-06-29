@@ -115,6 +115,8 @@
 
 .actions-row {
     margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .filter-toggle-btn {
