@@ -11,6 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
+import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { AddDuaModalComponent } from '../../components/add-dua-modal/add-dua-modal.component';
@@ -26,6 +27,7 @@ import { DuaService } from '../../services/dua.service';
         AddDuaModalComponent,
         DuaCardComponent,
         HlmSkeletonImports,
+        HlmTextareaImports,
     ],
     templateUrl: './answers.component.html',
     styleUrl: './answers.component.css',
@@ -37,7 +39,7 @@ export class AnswersComponent {
 
     userDuasResource = resource({
         params: () => this.duaService.userDuasTrigger(),
-        loader: ({ params }) => this.duaService.getUserDuas(),
+        loader: () => this.duaService.getUserDuas(),
     });
 
     answeredDuas = computed(() =>
@@ -98,5 +100,12 @@ export class AnswersComponent {
 
     updateAnswerNote(id: string, note: string) {
         this.noteUpdate$.next({ id, note });
+    }
+
+    scrollIntoViewOnFocus(event: FocusEvent) {
+        const el = event.target as HTMLElement;
+        setTimeout(() => {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 150);
     }
 }

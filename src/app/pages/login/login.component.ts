@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, type OnInit, signal } from '@angular/core';
+import {
+    Component,
+    inject,
+    isDevMode,
+    type OnInit,
+    signal,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { LucideDynamicIcon } from '@lucide/angular';
 import { SupabaseService } from '../../services/supabase.service';
@@ -65,9 +71,12 @@ export class LoginComponent implements OnInit {
             );
             this.router.navigate(['/']);
         } else {
+            const userFriendlyError =
+                'Ошибка авторизации через Telegram. Пожалуйста, попробуйте еще раз.';
             this.errorMessage.set(
-                res.error ||
-                    'Ошибка авторизации через Telegram. Пожалуйста, попробуйте еще раз.',
+                isDevMode()
+                    ? res.error || userFriendlyError
+                    : userFriendlyError,
             );
         }
     }

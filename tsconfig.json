@@ -1,53 +1,56 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "outDir": "./dist/out-tsc",
-        "strict": true,
-        "noImplicitOverride": true,
-        "noPropertyAccessFromIndexSignature": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
-        "skipLibCheck": true,
-        "isolatedModules": true,
-        "esModuleInterop": true,
-        "sourceMap": true,
-        "declaration": false,
-        "experimentalDecorators": true,
-        "moduleResolution": "bundler",
-        "importHelpers": true,
-        "target": "ES2022",
-        "module": "ES2022",
-        "paths": {
-            "@spartan-ng/helm/button": [
-                "./src/app/components/ui/button/src/index.ts"
-            ],
-            "@spartan-ng/helm/utils": [
-                "./src/app/components/ui/utils/src/index.ts"
-            ],
-            "@spartan-ng/helm/dialog": [
-                "./src/app/components/ui/dialog/src/index.ts"
-            ],
-            "@spartan-ng/helm/icon": [
-                "./src/app/components/ui/icon/src/index.ts"
-            ],
-            "@spartan-ng/helm/input": [
-                "./src/app/components/ui/input/src/index.ts"
-            ],
-            "@spartan-ng/helm/label": [
-                "./src/app/components/ui/label/src/index.ts"
-            ],
-            "@spartan-ng/helm/switch": [
-                "./src/app/components/ui/switch/src/index.ts"
-            ],
-            "@spartan-ng/helm/skeleton": [
-                "./src/app/components/ui/skeleton/src/index.ts"
-            ]
-        }
-    },
-    "angularCompilerOptions": {
-        "enableI18nLegacyMessageIdFormat": false,
-        "strictInjectionParameters": true,
-        "strictInputAccessModifiers": true,
-        "strictTemplates": true
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "paths": {
+      "@spartan-ng/helm/button": [
+        "./src/app/components/ui/button/src/index.ts"
+      ],
+      "@spartan-ng/helm/utils": [
+        "./src/app/components/ui/utils/src/index.ts"
+      ],
+      "@spartan-ng/helm/dialog": [
+        "./src/app/components/ui/dialog/src/index.ts"
+      ],
+      "@spartan-ng/helm/icon": [
+        "./src/app/components/ui/icon/src/index.ts"
+      ],
+      "@spartan-ng/helm/input": [
+        "./src/app/components/ui/input/src/index.ts"
+      ],
+      "@spartan-ng/helm/label": [
+        "./src/app/components/ui/label/src/index.ts"
+      ],
+      "@spartan-ng/helm/switch": [
+        "./src/app/components/ui/switch/src/index.ts"
+      ],
+      "@spartan-ng/helm/skeleton": [
+        "./src/app/components/ui/skeleton/src/index.ts"
+      ],
+      "@spartan-ng/helm/textarea": [
+        "./src/app/components/ui/textarea/src/index.ts"
+      ]
     }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
 }

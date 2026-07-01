@@ -98,27 +98,15 @@ export class DuaCardComponent {
         let sourceLabel = '';
         if (this.source() === 'Quran') {
             sourceLabel = 'Коран';
-        } else if (this.source() === 'Sunnah') {
-            sourceLabel = 'Сунна';
         } else if (this.reference()) {
             const ref = this.reference()?.toLowerCase() || '';
             if (ref.includes('коран') || ref.includes('сура')) {
                 sourceLabel = 'Коран';
-            } else if (
-                ref.includes('бухари') ||
-                ref.includes('муслим') ||
-                ref.includes('тирмизи') ||
-                ref.includes('дауд') ||
-                ref.includes('ахмад') ||
-                ref.includes('хаким') ||
-                ref.includes('табарани')
-            ) {
-                sourceLabel = 'Сунна';
             }
         }
 
         let sourceLine = '';
-        if (this.reference()) {
+        if (this.reference() && sourceLabel === 'Коран') {
             const ref = this.reference()!;
             const refLower = ref.toLowerCase();
             if (sourceLabel && !refLower.includes(sourceLabel.toLowerCase())) {

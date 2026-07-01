@@ -226,6 +226,7 @@
 
 .gratitude-note {
     display: block;
+    min-width: 100%;
 }
 
 .gratitude-note span {
@@ -237,33 +238,14 @@
 }
 
 .gratitude-note textarea {
-    width: 100%;
-    min-height: 50px;
+    min-height: calc(3 * 1.45em + 20px);
+    max-height: calc(7 * 1.45em + 20px);
     resize: none;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    padding: 10px;
-    background: var(--bg-milky);
-    color: var(--answer-ink);
     font-family: var(--font-body);
     font-size: 0.84rem;
     font-weight: 600;
     line-height: 1.45;
-    transition:
-        border-color 0.2s,
-        box-shadow 0.2s,
-        padding 0.2s;
-}
-
-.gratitude-note textarea:focus {
-    outline: none;
-    border-color: rgba(212, 175, 55, 0.5);
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-}
-
-.gratitude-note textarea::placeholder {
-    color: var(--text-muted);
-    font-weight: 500;
+    overflow-y: auto;
 }
 
 .gratitude-heart {
